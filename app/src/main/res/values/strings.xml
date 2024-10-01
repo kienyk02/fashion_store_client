@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FashionStoreApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close\n</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="home">Home</string>
+    <string name="notifications">Notifications</string>
+    <string name="chatbot">ChatBot</string>
+    <string name="profile">Profile</string>
+    <string name="onboarding_image">onboarding image</string>
+    <string name="quote1">Find The \nBest Collections</string>
+    <string name="quote2">Get your dream item easily with FashionStore\n and get other intersting offer</string>
+    <string name="sign_in">Sign In</string>
+</resources>
