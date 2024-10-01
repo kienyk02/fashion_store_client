@@ -21,8 +21,12 @@ class OnBoardingFragment : Fragment() {
     ): View? {
         binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
 
+        binding.btnSignUp.setOnClickListener {
+            findNavController().navigate(R.id.action_onBoardingFragment_to_signUpFragment)
+        }
+
         binding.btnSignIn.setOnClickListener {
-            findNavController().navigate(R.id.action_onBoardingFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
         }
         return binding.root
     }

@@ -13,4 +13,21 @@
     <string name="quote1">Find The \nBest Collections</string>
     <string name="quote2">Get your dream item easily with FashionStore\n and get other intersting offer</string>
     <string name="sign_in">Sign In</string>
+    <string name="store_name">FashionStore</string>
+    <string name="login">Đăng nhập</string>
+    <string name="login_quote1">Xin chào, trước tiên bạn phải đăng nhập để có thể \nsử dụng ứng dụng các tính năng trong FashionStore</string>
+    <string name="email_addr">Địa chỉ Email</string>
+    <string name="email_hint">Email của bạn</string>
+    <string name="password">Mật Khẩu</string>
+    <string name="password_hint">Nhập mật khẩu</string>
+    <string name="forgot_pw">Quên mật khẩu ?</string>
+    <string name="txt_login">Đăng nhập</string>
+    <string name="google">Google</string>
+    <string name="login_with">Hoặc đăng nhập với</string>
+    <string name="login_question">Bạn chưa có tài khoản?</string>
+    <string name="register">Đăng kí</string>
+    <string name="sign_up">Tạo tài khoản</string>
+    <string name="sign_up2">Hãy cùng nhau tạo tài khoản</string>
+    <string name="your_name">Tên của bạn</string>
+    <string name="sign_up_question">Bạn đã có tài khoản?</string>
 </resources>
