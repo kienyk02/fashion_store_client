@@ -26,5 +26,6 @@
     <color name="line_color1">#F2F2F2</color>
     <color name="txt_color1">#797780</color>
     <color name="txt_color2">#0D0D0E</color>
-
+    <color name="delete_color">#FF5959</color>
+    <color name="delete_color_click">#90FF5959</color>
 </resources>

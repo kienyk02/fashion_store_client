@@ -1,17 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".HomeFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvProduct"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProductSlide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/seeMoreWrapper"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/primary_color"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/btnSeeMore"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/see_more"
+                    android:textColor="@color/primary_color"
+                    android:textSize="18sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnBestSeller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/best_seller"
+                    android:textColor="@color/txt_color2"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/txt_color2" />
+
+                <TextView
+                    android:id="@+id/btnBestDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/best_discount"
+                    android:textColor="@color/txt_color2"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBestProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="70dp" />
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

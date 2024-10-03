@@ -11,7 +11,7 @@ import com.example.fashionstoreapp.databinding.ItemProductBinding
 class ProductAdapter(private var listProduct: List<Product>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onItemClick: ((Product) -> Unit)? = null
-    var onSeeMoreClick: (() -> Unit)? = null
+    var onAddCartClick: (() -> Unit)? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -32,6 +32,9 @@ class ProductAdapter(private var listProduct: List<Product>) :
         position: Int,
     ) {
         (holder as ViewHolder).onBind(listProduct[position])
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(listProduct[position])
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -48,6 +51,10 @@ class ProductAdapter(private var listProduct: List<Product>) :
                 productPrice.text = formatPrice(product.price)
 
                 productName.isSelected = true
+
+                btnAddCart.setOnClickListener {
+                    onAddCartClick?.invoke()
+                }
             }
         }
     }

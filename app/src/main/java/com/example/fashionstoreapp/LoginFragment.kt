@@ -27,7 +27,7 @@ class LoginFragment : Fragment() {
         showAndHidePassword()
 
         binding.btnLogin.setOnClickListener {
-            controller.navigate(R.id.action_loginFragment_to_homeFragment)
+            controller.navigate(R.id.action_loginFragment_to_navigationFragment)
         }
 
         binding.btnSignUp.setOnClickListener {

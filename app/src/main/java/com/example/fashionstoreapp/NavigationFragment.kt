@@ -46,6 +46,9 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         setUptNavigationMenu()
         setUpExpandableView()
         setUpBottomNavigation()
+        binding.fabCart.setOnClickListener {
+            controller.navigate(R.id.action_navigationFragment_to_cartFragment)
+        }
 
         return binding.root
     }
@@ -73,6 +76,7 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         val fragments = listOf(HomeFragment(), HomeFragment(), ProfileFragment())
         val pagerAdapter = MyPagerAdapter(requireActivity(), fragments)
         binding.viewPager.adapter = pagerAdapter
+        binding.viewPager.isUserInputEnabled = false
     }
 
     private fun setUptNavigationMenu() {

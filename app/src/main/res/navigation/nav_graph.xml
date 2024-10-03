@@ -11,8 +11,8 @@
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" >
         <action
-            android:id="@+id/action_onBoardingFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_onBoardingFragment_to_navigationFragment"
+            app:destination="@id/navigationFragment"
             app:enterAnim="@android:animator/fade_in"
             app:exitAnim="@android:animator/fade_out"
             app:popEnterAnim="@android:animator/fade_in"
@@ -26,18 +26,22 @@
     </fragment>
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/navigationFragment"
         android:name="com.example.fashionstoreapp.NavigationFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_navigation" />
+        tools:layout="@layout/fragment_navigation" >
+        <action
+            android:id="@+id/action_navigationFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.fashionstoreapp.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_loginFragment_to_navigationFragment"
+            app:destination="@id/navigationFragment" />
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -56,5 +60,10 @@
         android:name="com.example.fashionstoreapp.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.fashionstoreapp.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
 
 </navigation>
