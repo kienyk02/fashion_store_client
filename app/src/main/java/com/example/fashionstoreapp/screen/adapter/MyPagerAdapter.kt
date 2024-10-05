@@ -1,4 +1,4 @@
-package com.example.fashionstoreapp
+package com.example.fashionstoreapp.screen.adapter
 
 
 import androidx.fragment.app.Fragment

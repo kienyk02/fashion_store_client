@@ -1,4 +1,4 @@
-package com.example.fashionstoreapp
+package com.example.fashionstoreapp.screen
 
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
@@ -8,12 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.fashionstoreapp.databinding.FragmentSignUpBinding
+import com.example.fashionstoreapp.R
+import com.example.fashionstoreapp.databinding.FragmentLoginBinding
 
-class SignUpFragment : Fragment() {
-    private lateinit var binding: FragmentSignUpBinding
+class LoginFragment : Fragment() {
+    private lateinit var binding: FragmentLoginBinding
 
-    private val controller by lazy {
+    private val controller by lazy{
         findNavController()
     }
 
@@ -22,11 +23,16 @@ class SignUpFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         showAndHidePassword()
-        binding.btnSignIn.setOnClickListener {
-            controller.navigate(R.id.action_signUpFragment_to_loginFragment)
+
+        binding.btnLogin.setOnClickListener {
+            controller.navigate(R.id.action_loginFragment_to_navigationFragment)
+        }
+
+        binding.btnSignUp.setOnClickListener {
+            controller.navigate(R.id.action_loginFragment_to_signUpFragment)
         }
 
         return binding.root

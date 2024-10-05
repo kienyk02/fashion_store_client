@@ -1,4 +1,4 @@
-package com.example.fashionstoreapp
+package com.example.fashionstoreapp.screen
 
 import android.graphics.Typeface
 import android.os.Bundle
@@ -11,6 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.example.fashionstoreapp.screen.adapter.CategoryAdapter
+import com.example.fashionstoreapp.screen.adapter.ProductAdapter
+import com.example.fashionstoreapp.screen.adapter.SlideAdapter
+import com.example.fashionstoreapp.data.model.Category
+import com.example.fashionstoreapp.data.model.Product
 import com.example.fashionstoreapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

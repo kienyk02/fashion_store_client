@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".screen.SearchFragment">
+
+    <TextView
+        android:id="@+id/txtKey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/txt_color2"
+        android:textSize="28sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Áo sơ mi nam" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/txt_color1"
+        app:layout_constraintTop_toBottomOf="@id/txtKey" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/filterWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/txtKey">
+
+        <TextView
+            android:id="@+id/txtNumResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="8 sản phẩm"
+            android:textColor="@color/gray_light2"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnFilter"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/txt_color1"
+            app:strokeWidth="1dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/filter"
+                    android:textColor="@color/txt_color2"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterWrapper">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProductResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_product" />
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

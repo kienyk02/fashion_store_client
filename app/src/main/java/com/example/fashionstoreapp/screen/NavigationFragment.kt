@@ -1,12 +1,14 @@
-package com.example.fashionstoreapp
+package com.example.fashionstoreapp.screen
 
-import android.animation.Animator
+import android.content.Context
+import android.location.Address
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
@@ -14,15 +16,22 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.fashionstoreapp.databinding.FragmentNavigationBinding
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.tabs.TabLayoutMediator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ValueAnimator
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
+import com.example.fashionstoreapp.R
+import com.example.fashionstoreapp.data.model.ExpendedMenuModel
+import com.example.fashionstoreapp.screen.adapter.ExpandableListAdapter
+import com.example.fashionstoreapp.screen.adapter.MyPagerAdapter
+import com.example.fashionstoreapp.screen.viewmodel.SearchViewModel
+import com.google.android.gms.maps.model.LatLng
 
 
 class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: FragmentNavigationBinding
+    private val searchViewModel by lazy {
+        ViewModelProvider(requireActivity())[SearchViewModel::class.java]
+    }
 
     private val controller by lazy {
         findNavController()
@@ -46,6 +55,7 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         setUptNavigationMenu()
         setUpExpandableView()
         setUpBottomNavigation()
+        handleSearch()
         binding.fabCart.setOnClickListener {
             controller.navigate(R.id.action_navigationFragment_to_cartFragment)
         }
@@ -73,7 +83,14 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
     }
 
     private fun setUptViewPager() {
-        val fragments = listOf(HomeFragment(), HomeFragment(), ProfileFragment())
+        val fragments = listOf(
+            HomeFragment(),
+            ProfileFragment(),
+            ProfileFragment(),
+            ProfileFragment(),
+            ProfileFragment(),
+            SearchFragment()
+        )
         val pagerAdapter = MyPagerAdapter(requireActivity(), fragments)
         binding.viewPager.adapter = pagerAdapter
         binding.viewPager.isUserInputEnabled = false
@@ -87,7 +104,10 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navigationView.setNavigationItemSelectedListener(this)
-        toggle.drawerArrowDrawable.color = ContextCompat.getColor(requireActivity(), R.color.primary_color)
+        toggle.drawerArrowDrawable.color = ContextCompat.getColor(
+            requireActivity(),
+            R.color.primary_color
+        )
     }
 
     private fun setUpExpandableView() {
@@ -118,9 +138,16 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
     private fun setUpBottomNavigation() {
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_home -> binding.viewPager.currentItem = 0
+                R.id.nav_home -> {
+                    if (binding.viewPager.currentItem == 5) binding.viewPager.setCurrentItem(
+                        0,
+                        false
+                    )
+                    else binding.viewPager.currentItem = 0
+                }
+
                 R.id.nav_profile -> {
-                    binding.viewPager.currentItem = 2
+                    binding.viewPager.currentItem = 4
                 }
             }
             true
@@ -128,9 +155,9 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.bottomNav.menu.getItem(position).isChecked = true
-                if (position == 0) binding.toolbar.visibility = View.VISIBLE
-                else binding.toolbar.visibility = View.GONE
+                if (position < 5) binding.bottomNav.menu.getItem(position).isChecked = true
+                if (position == 0 || position == 5) binding.header.visibility = View.VISIBLE
+                else binding.header.visibility = View.GONE
             }
         })
     }
@@ -143,5 +170,34 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         }
         binding.drawerLayout.closeDrawer(binding.navigationView)
         return true
+    }
+
+    private fun handleSearch() {
+        binding.btnSearch.setOnClickListener {
+            binding.searchHeader.visibility = View.VISIBLE
+            binding.toolbar.visibility = View.GONE
+        }
+        binding.btnClose.setOnClickListener {
+            binding.searchHeader.visibility = View.GONE
+            binding.toolbar.visibility = View.VISIBLE
+        }
+
+        binding.edtSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                val key: String = binding.edtSearch.query.toString()
+
+                if (binding.viewPager.currentItem != 5) binding.viewPager.setCurrentItem(5, false)
+                binding.searchHeader.visibility = View.GONE
+                binding.toolbar.visibility = View.VISIBLE
+                searchViewModel.updateKey(key)
+                binding.edtSearch.requestFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+        })
+
     }
 }

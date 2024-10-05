@@ -1,4 +1,4 @@
-package com.example.fashionstoreapp
+package com.example.fashionstoreapp.screen
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

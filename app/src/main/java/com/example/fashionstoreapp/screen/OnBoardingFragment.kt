@@ -1,13 +1,12 @@
-package com.example.fashionstoreapp
+package com.example.fashionstoreapp.screen
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.databinding.FragmentOnBoardingBinding
 
 class OnBoardingFragment : Fragment() {

@@ -28,4 +28,5 @@
     <color name="txt_color2">#0D0D0E</color>
     <color name="delete_color">#FF5959</color>
     <color name="delete_color_click">#90FF5959</color>
+    <color name="popup_bg">#BC000000</color>
 </resources>

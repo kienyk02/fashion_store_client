@@ -1,10 +1,12 @@
-package com.example.fashionstoreapp
+package com.example.fashionstoreapp.screen.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fashionstoreapp.R
+import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.databinding.ItemCategoryBinding
 
 class CategoryAdapter(private var listCategory: List<Category>) :

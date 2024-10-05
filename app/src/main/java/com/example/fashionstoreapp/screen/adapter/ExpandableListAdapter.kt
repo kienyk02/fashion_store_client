@@ -1,4 +1,4 @@
-package com.example.fashionstoreapp
+package com.example.fashionstoreapp.screen.adapter
 
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import androidx.core.content.ContextCompat
+import com.example.fashionstoreapp.R
+import com.example.fashionstoreapp.data.model.ExpendedMenuModel
 import com.example.fashionstoreapp.databinding.ListParentItemBinding
 import com.example.fashionstoreapp.databinding.ListSubItemBinding
 

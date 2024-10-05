@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.example.fashionstoreapp.OnBoardingFragment"
+        android:name="com.example.fashionstoreapp.screen.OnBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" >
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/navigationFragment"
-        android:name="com.example.fashionstoreapp.NavigationFragment"
+        android:name="com.example.fashionstoreapp.screen.NavigationFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_navigation" >
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.fashionstoreapp.LoginFragment"
+        android:name="com.example.fashionstoreapp.screen.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.fashionstoreapp.SignUpFragment"
+        android:name="com.example.fashionstoreapp.screen.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
@@ -57,12 +57,12 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.fashionstoreapp.ProfileFragment"
+        android:name="com.example.fashionstoreapp.screen.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.fashionstoreapp.CartFragment"
+        android:name="com.example.fashionstoreapp.screen.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
 

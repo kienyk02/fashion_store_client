@@ -35,4 +35,10 @@
     <string name="best_discount">Giảm giá nhiều nhất</string>
     <string name="cart">Giỏ hàng</string>
     <string name="payment">Thanh toán</string>
+    <string name="close">Đóng</string>
+    <string name="apply">Áp dụng</string>
+    <string name="price">Giá tiền</string>
+    <string name="category">Danh mục</string>
+    <string name="reset">Đặt lại</string>
+    <string name="filter">Bộ lọc</string>
 </resources>
