@@ -43,6 +43,14 @@ class ProductAdapter(private var listProduct: List<Product>) :
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun addData(list: List<Product>) {
+        val mutableList = this.listProduct.toMutableList()
+        mutableList.addAll(list)
+        this.listProduct = mutableList
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(product: Product) {

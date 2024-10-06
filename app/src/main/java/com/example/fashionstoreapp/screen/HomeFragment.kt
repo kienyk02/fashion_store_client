@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.screen.adapter.CategoryAdapter
 import com.example.fashionstoreapp.screen.adapter.ProductAdapter
 import com.example.fashionstoreapp.screen.adapter.SlideAdapter
@@ -48,6 +49,7 @@ class HomeFragment : Fragment() {
         setUpBestProductRecycleView()
         handleBestSellerClick()
         handleBestDiscountClick()
+        handleSeeMoreClick()
 
 
         return binding.root
@@ -83,7 +85,10 @@ class HomeFragment : Fragment() {
         binding.rvProduct.layoutManager =
             GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
         productAdapter.onItemClick = {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply {
+                putParcelable("product", it)
+            }
+            controller.navigate(R.id.action_navigationFragment_to_detailFragment, bundle)
         }
         productAdapter.onAddCartClick = {
             Toast.makeText(requireContext(), "Clicked Add Cart", Toast.LENGTH_SHORT).show()
@@ -97,7 +102,10 @@ class HomeFragment : Fragment() {
         binding.rvBestProduct.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         bestProductAdapter.onItemClick = {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply {
+                putParcelable("product", it)
+            }
+            controller.navigate(R.id.action_navigationFragment_to_detailFragment, bundle)
         }
         bestProductAdapter.onAddCartClick = {
             Toast.makeText(requireContext(), "Clicked Add Cart", Toast.LENGTH_SHORT).show()
@@ -138,6 +146,12 @@ class HomeFragment : Fragment() {
         binding.btnBestDiscount.setOnClickListener {
             binding.btnBestSeller.setTypeface(null, Typeface.NORMAL)
             binding.btnBestDiscount.setTypeface(null, Typeface.BOLD)
+        }
+    }
+
+    private fun handleSeeMoreClick() {
+        binding.btnSeeMore.setOnClickListener {
+            controller.navigate(R.id.action_navigationFragment_to_seeMoreFragment)
         }
     }
 

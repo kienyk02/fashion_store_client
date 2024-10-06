@@ -33,6 +33,21 @@
         <action
             android:id="@+id/action_navigationFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_seeMoreFragment"
+            app:destination="@id/seeMoreFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_seeMoreFragment2"
+            app:destination="@id/seeMoreFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_seeMoreFragment3"
+            app:destination="@id/seeMoreFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_seeMoreFragment4"
+            app:destination="@id/seeMoreFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -64,6 +79,24 @@
         android:id="@+id/cartFragment"
         android:name="com.example.fashionstoreapp.screen.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seeMoreFragment"
+        android:name="com.example.fashionstoreapp.screen.SeeMoreFragment"
+        android:label="fragment_see_more"
+        tools:layout="@layout/fragment_see_more" >
+        <action
+            android:id="@+id/action_seeMoreFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.fashionstoreapp.screen.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 
 </navigation>

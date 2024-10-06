@@ -31,14 +31,22 @@
     <string name="your_name">Tên của bạn</string>
     <string name="sign_up_question">Bạn đã có tài khoản?</string>
     <string name="see_more">Xem thêm</string>
+    <string name="see_less" translatable="false">See less</string>
     <string name="best_seller">Bán chạy nhất</string>
     <string name="best_discount">Giảm giá nhiều nhất</string>
     <string name="cart">Giỏ hàng</string>
     <string name="payment">Thanh toán</string>
+    <string name="detail">Chi tiết</string>
     <string name="close">Đóng</string>
     <string name="apply">Áp dụng</string>
     <string name="price">Giá tiền</string>
     <string name="category">Danh mục</string>
     <string name="reset">Đặt lại</string>
     <string name="filter">Bộ lọc</string>
+    <string name="detail2">Chi tiết sản phẩm</string>
+    <string name="add_cart">Thêm vào giỏ</string>
+    <string name="description_text" translatable="false"> Áo sweater nam thu đông ANI24027 là sản phẩm mới nhất nằm trong BST WINTER COLLECTION của 5S FASHION với chất liệu thân thiện với da. Vải có kết cấu hai lớp với mặt ngoài Cotton x Poly vừa mềm mịn, thấm hút vừa có độ bền cao, hạn chế bai gião; mặt trong là sự kết hợp của Poly và Spandex với ưu điểm giữ ấm, giữ nhiệt tốt, co giãn đa chiều, đàn hồi, mang lại cảm giác êm ái, dễ chịu cho người mặc.</string>
+    <string name="quantity">Số lượng:</string>
+    <string name="size">Size</string>
+
 </resources>

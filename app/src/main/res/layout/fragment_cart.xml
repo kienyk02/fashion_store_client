@@ -7,56 +7,16 @@
     android:background="@color/white_frame"
     tools:context=".screen.CartFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cartHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:backgroundTint="@color/white"
-            app:cardCornerRadius="50dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/gray_light2"
-            app:strokeWidth="1dp">
-
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@null"
-                android:padding="15dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/angle_left" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/robotoregular"
-            android:text="@string/cart"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/header_layout" />
     <!--    Cart items-->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsvCart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/cartFooterView"
-        app:layout_constraintTop_toBottomOf="@id/cartHeader">
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCart"

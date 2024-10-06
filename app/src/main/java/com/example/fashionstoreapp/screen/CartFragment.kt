@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.Cart
 import com.example.fashionstoreapp.data.model.Product
 import com.example.fashionstoreapp.databinding.FragmentCartBinding
+import com.example.fashionstoreapp.databinding.HeaderLayoutBinding
 import com.example.fashionstoreapp.screen.adapter.CartAdapter
 
 class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
+    private lateinit var headerBinding: HeaderLayoutBinding
 
     private val controller by lazy {
         findNavController()
@@ -29,11 +32,13 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
+        headerBinding = binding.layoutHeader
 
+        headerBinding.txtTitle.text = getString(R.string.cart)
 
         initFakeDate()
         setUpCartAdapter()
-        binding.btnBack.setOnClickListener {
+        headerBinding.btnBack.setOnClickListener {
             controller.popBackStack()
         }
 
@@ -47,7 +52,10 @@ class CartFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         cartAdapter.setData(listCart)
         cartAdapter.onItemClick = {
-            Toast.makeText(requireContext(), it.product.name, Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply {
+                putParcelable("product", it.product)
+            }
+            controller.navigate(R.id.action_cartFragment_to_detailFragment, bundle)
         }
     }
 
