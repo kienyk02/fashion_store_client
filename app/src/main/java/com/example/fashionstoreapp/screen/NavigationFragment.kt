@@ -68,6 +68,7 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
             ExpendedMenuModel(1, "Áo nam", R.drawable.tshirt),
             ExpendedMenuModel(2, "Quần nam", R.drawable.trouser),
             ExpendedMenuModel(3, "Phụ kiện", R.drawable.accessory),
+            ExpendedMenuModel(4, "Lịch sử đặt hàng", R.drawable.truck),
         )
         dataList = HashMap()
 
@@ -80,6 +81,7 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         dataList[titleList[0]] = subItems
         dataList[titleList[1]] = subItems
         dataList[titleList[2]] = emptyList()
+        dataList[titleList[3]] = emptyList()
     }
 
     private fun setUptViewPager() {
@@ -120,6 +122,7 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                 "Clicked: " + expandableListAdapter.getChild(groupPosition, childPosition),
                 Toast.LENGTH_SHORT
             ).show()
+
             false
         }
 
@@ -131,6 +134,8 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                     "Clicked on group: $item", Toast.LENGTH_SHORT
                 ).show()
             }
+            if (groupPosition == titleList.size - 1)
+                controller.navigate(R.id.action_navigationFragment_to_orderHistoryFragment)
             false
         }
     }

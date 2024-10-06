@@ -1,0 +1,13 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Màu của tab indicator -->
+    <solid android:color="@color/primary_color" />
+
+    <!-- Đặt bo góc -->
+    <corners android:topLeftRadius="16dp"
+        android:topRightRadius="16dp"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp" />
+
+    <!-- Chiều cao của indicator -->
+    <size android:height="5dp" />
+</shape>

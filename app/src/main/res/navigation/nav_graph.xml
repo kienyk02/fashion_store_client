@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_navigationFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_orderHistoryFragment"
+            app:destination="@id/orderHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -98,5 +101,10 @@
         android:name="com.example.fashionstoreapp.screen.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/orderHistoryFragment"
+        android:name="com.example.fashionstoreapp.screen.OrderHistoryFragment"
+        android:label="fragment_order_history"
+        tools:layout="@layout/fragment_order_history" />
 
 </navigation>

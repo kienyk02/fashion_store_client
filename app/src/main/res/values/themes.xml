@@ -9,4 +9,10 @@
     </style>
 
     <style name="Theme.FashionStoreApp" parent="Base.Theme.FashionStoreApp" />
+
+    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>
