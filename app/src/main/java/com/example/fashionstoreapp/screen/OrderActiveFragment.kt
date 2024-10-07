@@ -44,7 +44,9 @@ class OrderActiveFragment : Fragment() {
         orderAdapter.setData(listOrder)
 
         orderAdapter.onItemClick = {
-            Toast.makeText(requireContext(), "Click item", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putParcelable("order", it)
+            controller.navigate(R.id.action_orderHistoryFragment_to_orderDetailFragment, bundle)
         }
     }
 

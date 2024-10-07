@@ -42,6 +42,10 @@ class CartFragment : Fragment() {
             controller.popBackStack()
         }
 
+        binding.btnCheckout.setOnClickListener {
+            controller.navigate(R.id.action_cartFragment_to_checkoutFragment)
+        }
+
         return binding.root
     }
 

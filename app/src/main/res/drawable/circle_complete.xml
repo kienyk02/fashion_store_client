@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Layer 1: Hình tròn -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/primary_color" /> <!-- Màu của hình tròn -->
+            <size android:width="48dp" android:height="48dp"/> <!-- Kích thước hình tròn -->
+        </shape>
+    </item>
+
+    <!-- Layer 2: Dấu tích -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/ic_check" /> <!-- Icon dấu tích -->
+    </item>
+</layer-list>

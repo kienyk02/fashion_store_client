@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/gray_light1"/> <!-- Màu đường nối mặc định -->
+    <size android:width="5dp" android:height="30dp"/> <!-- Chiều dài đường nối -->
+</shape>

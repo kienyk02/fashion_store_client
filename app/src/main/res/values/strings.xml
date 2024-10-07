@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FashionStore</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="ggmap_apikey">AIzaSyAZQtUsYMVdmPgulpjq4d58sU_HfGl3JAM</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="navigation_drawer_open">navigation_drawer_open</string>
     <string name="navigation_drawer_close">navigation_drawer_close\n</string>
@@ -52,7 +53,22 @@
     <string name="non_order">Không có đơn hàng</string>
     <string name="quantity_text">x3</string>
     <string name="private_exp">450.000đ</string>
-    <string name="total">Total:</string>
+    <string name="total">Tổng tiển</string>
     <string name="product_quantity_exp">2 sản phẩm</string>
+    <string name="order_status">Trạng thái đơn hàng</string>
+    <string name="thank_order">Cảm ơn bạn đã mua hàng từ chúng tôi!</string>
+    <string name="contact_info">Thông tin liên hệ</string>
+    <string name="cust_name">Le Van Kien</string>
+    <string name="cust_phone">(+084) 0961016881</string>
+    <string name="cust_addr">Yen Khe, Yen Thuong, Gia Lam, Ha Noi</string>
+    <string name="payment_method">Phương thức thanh toán</string>
+    <string name="order_code">Mã đơn hàng</string>
+    <string name="order_time">Thời gian đặt hàng</string>
+    <string name="order_detail">Chi tiết đơn hàng</string>
+    <string name="stage_description">Stage description</string>
+    <string name="save">Lưu</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="address">Địa chỉ</string>
+    <string name="shipment_method">Phương thức vận chuyển</string>
 
 </resources>

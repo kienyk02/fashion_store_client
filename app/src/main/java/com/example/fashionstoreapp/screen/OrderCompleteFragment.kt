@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.Order
 import com.example.fashionstoreapp.databinding.FragmentOrderCompleteBinding
 import com.example.fashionstoreapp.screen.adapter.OrderAdapter
@@ -43,7 +44,9 @@ class OrderCompleteFragment : Fragment() {
         orderAdapter.setData(listOrder)
 
         orderAdapter.onItemClick = {
-            Toast.makeText(requireContext(), "Click item", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putParcelable("order", it)
+            controller.navigate(R.id.action_orderHistoryFragment_to_orderDetailFragment, bundle)
         }
     }
 

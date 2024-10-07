@@ -1,3 +1,7 @@
 package com.example.fashionstoreapp.data.model
 
-class Order(var id: Int)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+class Order(var id: Int): Parcelable
