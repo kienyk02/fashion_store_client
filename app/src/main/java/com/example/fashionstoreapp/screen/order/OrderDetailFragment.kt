@@ -1,4 +1,4 @@
-package com.example.fashionstoreapp.screen
+package com.example.fashionstoreapp.screen.order
 
 import android.os.Bundle
 import android.view.LayoutInflater

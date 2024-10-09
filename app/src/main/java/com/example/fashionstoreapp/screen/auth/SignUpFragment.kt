@@ -1,4 +1,4 @@
-package com.example.fashionstoreapp.screen
+package com.example.fashionstoreapp.screen.auth
 
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
@@ -9,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.fashionstoreapp.R
-import com.example.fashionstoreapp.databinding.FragmentLoginBinding
+import com.example.fashionstoreapp.databinding.FragmentSignUpBinding
 
-class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
+class SignUpFragment : Fragment() {
+    private lateinit var binding: FragmentSignUpBinding
 
-    private val controller by lazy{
+    private val controller by lazy {
         findNavController()
     }
 
@@ -23,16 +23,11 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
         showAndHidePassword()
-
-        binding.btnLogin.setOnClickListener {
-            controller.navigate(R.id.action_loginFragment_to_navigationFragment)
-        }
-
-        binding.btnSignUp.setOnClickListener {
-            controller.navigate(R.id.action_loginFragment_to_signUpFragment)
+        binding.btnSignIn.setOnClickListener {
+            controller.navigate(R.id.action_signUpFragment_to_loginFragment)
         }
 
         return binding.root

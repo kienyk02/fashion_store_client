@@ -1,14 +1,11 @@
 package com.example.fashionstoreapp.screen
 
-import android.content.Context
-import android.location.Address
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
@@ -23,8 +20,10 @@ import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.ExpendedMenuModel
 import com.example.fashionstoreapp.screen.adapter.ExpandableListAdapter
 import com.example.fashionstoreapp.screen.adapter.MyPagerAdapter
+import com.example.fashionstoreapp.screen.product.SearchFragment
+import com.example.fashionstoreapp.screen.setting.ProfileFragment
+import com.example.fashionstoreapp.screen.setting.SettingFragment
 import com.example.fashionstoreapp.screen.viewmodel.SearchViewModel
-import com.google.android.gms.maps.model.LatLng
 
 
 class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
@@ -90,7 +89,7 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
             ProfileFragment(),
             ProfileFragment(),
             ProfileFragment(),
-            ProfileFragment(),
+            SettingFragment(),
             SearchFragment()
         )
         val pagerAdapter = MyPagerAdapter(requireActivity(), fragments)
@@ -151,7 +150,7 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                     else binding.viewPager.currentItem = 0
                 }
 
-                R.id.nav_profile -> {
+                R.id.nav_setting -> {
                     binding.viewPager.currentItem = 4
                 }
             }
@@ -170,8 +169,6 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> binding.viewPager.currentItem = 0
-            R.id.nav_gallery -> binding.viewPager.currentItem = 1
-            R.id.nav_profile -> binding.viewPager.currentItem = 2
         }
         binding.drawerLayout.closeDrawer(binding.navigationView)
         return true

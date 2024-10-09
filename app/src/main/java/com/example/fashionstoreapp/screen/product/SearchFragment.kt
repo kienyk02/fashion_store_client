@@ -1,4 +1,4 @@
-package com.example.fashionstoreapp.screen
+package com.example.fashionstoreapp.screen.product
 
 import android.app.Dialog
 import android.graphics.Color

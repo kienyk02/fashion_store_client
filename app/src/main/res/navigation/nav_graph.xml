@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.example.fashionstoreapp.screen.OnBoardingFragment"
+        android:name="com.example.fashionstoreapp.screen.auth.OnBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" >
         <action
@@ -51,10 +51,19 @@
         <action
             android:id="@+id/action_navigationFragment_to_orderHistoryFragment"
             app:destination="@id/orderHistoryFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_bankFragment"
+            app:destination="@id/bankFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.fashionstoreapp.screen.LoginFragment"
+        android:name="com.example.fashionstoreapp.screen.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -63,10 +72,13 @@
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotFragment"
+            app:destination="@id/forgotFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.fashionstoreapp.screen.SignUpFragment"
+        android:name="com.example.fashionstoreapp.screen.auth.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
@@ -75,12 +87,12 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.fashionstoreapp.screen.ProfileFragment"
+        android:name="com.example.fashionstoreapp.screen.setting.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.fashionstoreapp.screen.CartFragment"
+        android:name="com.example.fashionstoreapp.screen.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" >
         <action
@@ -92,7 +104,7 @@
     </fragment>
     <fragment
         android:id="@+id/seeMoreFragment"
-        android:name="com.example.fashionstoreapp.screen.SeeMoreFragment"
+        android:name="com.example.fashionstoreapp.screen.product.SeeMoreFragment"
         android:label="fragment_see_more"
         tools:layout="@layout/fragment_see_more" >
         <action
@@ -101,12 +113,12 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.fashionstoreapp.screen.DetailFragment"
+        android:name="com.example.fashionstoreapp.screen.product.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" />
     <fragment
         android:id="@+id/orderHistoryFragment"
-        android:name="com.example.fashionstoreapp.screen.OrderHistoryFragment"
+        android:name="com.example.fashionstoreapp.screen.order.OrderHistoryFragment"
         android:label="fragment_order_history"
         tools:layout="@layout/fragment_order_history" >
         <action
@@ -115,13 +127,62 @@
     </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"
-        android:name="com.example.fashionstoreapp.screen.OrderDetailFragment"
+        android:name="com.example.fashionstoreapp.screen.order.OrderDetailFragment"
         android:label="fragment_order_detail"
         tools:layout="@layout/fragment_order_detail" />
     <fragment
         android:id="@+id/checkoutFragment"
-        android:name="com.example.fashionstoreapp.screen.CheckoutFragment"
+        android:name="com.example.fashionstoreapp.screen.checkout.CheckoutFragment"
         android:label="fragment_checkout"
-        tools:layout="@layout/fragment_checkout" />
+        tools:layout="@layout/fragment_checkout" >
+        <action
+            android:id="@+id/action_checkoutFragment_to_orderHistoryFragment"
+            app:destination="@id/orderHistoryFragment" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_GGMapFragment"
+            app:destination="@id/GGMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/GGMapFragment"
+        android:name="com.example.fashionstoreapp.screen.checkout.GGMapFragment"
+        android:label="fragment_g_g_map"
+        tools:layout="@layout/fragment_g_g_map" />
+    <fragment
+        android:id="@+id/forgotFragment"
+        android:name="com.example.fashionstoreapp.screen.auth.ForgotFragment"
+        android:label="fragment_forgot"
+        tools:layout="@layout/fragment_forgot" >
+        <action
+            android:id="@+id/action_forgotFragment_to_verificationFragment"
+            app:destination="@id/verificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/renewPasswordFragment"
+        android:name="com.example.fashionstoreapp.screen.auth.RenewPasswordFragment"
+        android:label="fragment_renew_password"
+        tools:layout="@layout/fragment_renew_password" >
+        <action
+            android:id="@+id/action_renewPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verificationFragment"
+        android:name="com.example.fashionstoreapp.screen.auth.VerificationFragment"
+        android:label="fragment_verification"
+        tools:layout="@layout/fragment_verification" >
+        <action
+            android:id="@+id/action_verificationFragment_to_renewPasswordFragment"
+            app:destination="@id/renewPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.fashionstoreapp.screen.setting.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address" />
+    <fragment
+        android:id="@+id/bankFragment"
+        android:name="com.example.fashionstoreapp.screen.setting.BankFragment"
+        android:label="fragment_bank"
+        tools:layout="@layout/fragment_bank" />
 
 </navigation>

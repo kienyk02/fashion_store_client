@@ -69,6 +69,20 @@
     <string name="save">Lưu</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="address">Địa chỉ</string>
+    <string name="bank">Ngân hàng</string>
     <string name="shipment_method">Phương thức vận chuyển</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="confirm_code">Mã Xác Thực</string>
+    <string name="new_pw">Mật Khẩu Mới</string>
+    <string name="gender">Giới tính</string>
+    <string name="click_to_change">Nhấn để đổi</string>
+    <string name="credit_card">Thẻ tín dụng/Ghi nợ</string>
+    <string name="add_new_card">+ Thêm thẻ mới</string>
+    <string name="add_bank_account">+ Thêm tài khoản ngân hàng</string>
+    <string name="account">Tài khoản</string>
+    <string name="account_info">Thông Tin Tài Khoản</string>
+    <string name="setting_app">Cài Đặt Ứng Dụng</string>
+    <string name="s_d_ng_v_n_tay_thanh_to_n">Sử Dụng Vân Tay Để Thanh Toán</string>
+    <string name="setting">Cài đặt</string>
 
 </resources>

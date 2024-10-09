@@ -1,4 +1,4 @@
-package com.example.fashionstoreapp.screen
+package com.example.fashionstoreapp.screen.checkout
 
 import android.app.Dialog
 import android.graphics.Color
@@ -60,6 +60,9 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback {
             openDialogEditPhone()
         }
 
+        binding.btnPayment.setOnClickListener {
+            openDialogNotification()
+        }
 
         geocoder = Geocoder(requireActivity())
         val mapFragment = childFragmentManager.findFragmentById(R.id.btnMap) as SupportMapFragment
@@ -91,10 +94,29 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback {
             marker = googleMap.addMarker(MarkerOptions().position(LatLng))!!
 //            })
 
-//            googleMap.setOnMapClickListener { latLng ->
-//                controller.navigate(R.id.action_checkoutFragment_to_GGMapFragment)
-//            }
+            googleMap.setOnMapClickListener { latLng ->
+                controller.navigate(R.id.action_checkoutFragment_to_GGMapFragment)
+            }
         }
+    }
+
+    fun openDialogNotification() {
+        val dialog = Dialog(requireActivity())
+        dialog.setContentView(R.layout.dialog_noti_checkout)
+        dialog.setCanceledOnTouchOutside(false)
+
+        val window = dialog.window
+        if (window == null) {
+            return
+        }
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))// Để loại bỏ viền màu trắng xung quanh dialog
+
+        var btnBack: Button = dialog.findViewById(R.id.btnBack)
+        btnBack.setOnClickListener {
+            controller.navigate(R.id.action_checkoutFragment_to_orderHistoryFragment)
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun openDialogEditName() {
