@@ -60,6 +60,14 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback {
             openDialogEditPhone()
         }
 
+        binding.layoutShipmentMethod.setOnClickListener {
+            controller.navigate(R.id.action_checkoutFragment_to_shipmentMethodFragment)
+        }
+
+        binding.layoutPaymentMethod.setOnClickListener {
+            controller.navigate(R.id.action_checkoutFragment_to_paymentMethodFragment)
+        }
+
         binding.btnPayment.setOnClickListener {
             openDialogNotification()
         }

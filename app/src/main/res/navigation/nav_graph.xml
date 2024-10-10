@@ -141,6 +141,12 @@
         <action
             android:id="@+id/action_checkoutFragment_to_GGMapFragment"
             app:destination="@id/GGMapFragment" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_shipmentMethodFragment"
+            app:destination="@id/shipmentMethodFragment" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_paymentMethodFragment"
+            app:destination="@id/paymentMethodFragment" />
     </fragment>
     <fragment
         android:id="@+id/GGMapFragment"
@@ -184,5 +190,15 @@
         android:name="com.example.fashionstoreapp.screen.setting.BankFragment"
         android:label="fragment_bank"
         tools:layout="@layout/fragment_bank" />
+    <fragment
+        android:id="@+id/paymentMethodFragment"
+        android:name="com.example.fashionstoreapp.screen.checkout.PaymentMethodFragment"
+        android:label="fragment_payment_method"
+        tools:layout="@layout/fragment_payment_method" />
+    <fragment
+        android:id="@+id/shipmentMethodFragment"
+        android:name="com.example.fashionstoreapp.screen.checkout.ShipmentMethodFragment"
+        android:label="fragment_shipment_method"
+        tools:layout="@layout/fragment_shipment_method" />
 
 </navigation>

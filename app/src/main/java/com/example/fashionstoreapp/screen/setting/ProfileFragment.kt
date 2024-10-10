@@ -41,6 +41,34 @@ class ProfileFragment : Fragment() {
             controller.popBackStack()
         }
 
+        binding.apply {
+            btnEdit.setOnClickListener {
+                btnEdit.visibility = View.INVISIBLE
+                txtChangeAvt.visibility = View.VISIBLE
+                btnAvt.isClickable = true
+                txtEditName.isEnabled = true
+                spinnerGender.isEnabled = true
+                spinnerGender.isClickable = true
+                btnSelectGender.visibility = View.VISIBLE
+                txtEditPhone.isEnabled = true
+                btnSave.visibility = View.VISIBLE
+            }
+
+            btnSave.setOnClickListener {
+                btnEdit.visibility = View.VISIBLE
+                txtChangeAvt.visibility = View.INVISIBLE
+                btnAvt.isClickable = false
+                txtEditName.isEnabled = false
+                spinnerGender.isEnabled = false
+                spinnerGender.isClickable = false
+                btnSelectGender.visibility = View.INVISIBLE
+                txtEditPhone.isEnabled = false
+                btnSave.visibility = View.INVISIBLE
+//                updateUserInfo()
+            }
+        }
+
+
         return binding.root
     }
 
