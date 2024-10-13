@@ -16,7 +16,7 @@
         android:text="@string/store_name"
         android:textColor="@color/white"
         android:textSize="45sp"
-        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintHeight_percent="0.15"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -75,10 +75,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:inputType="text"
                 android:background="@android:color/transparent"
                 android:hint="@string/your_name"
+                android:inputType="text"
                 android:textSize="15sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/gender"
+            android:textColor="@color/gray_light2"
+            android:textSize="17sp"
+            android:textStyle="normal" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/signupGender"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/gray_light2"
+            app:strokeWidth="1dp">
+
+            <Spinner
+                android:id="@+id/spinnerGender"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/angle_down" />
+
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
@@ -171,8 +208,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/layoutSignUpTyping">
@@ -223,4 +260,15 @@
             android:textColor="@color/primary_color"
             android:textSize="17sp" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/primary_color"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

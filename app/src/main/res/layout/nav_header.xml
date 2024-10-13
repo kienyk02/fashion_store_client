@@ -9,26 +9,31 @@
     android:paddingStart="15dp"
     android:paddingEnd="15dp">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:elevation="0dp"
+        app:strokeColor="@color/gray_light1"
+        app:cardElevation="0dp"
+        app:strokeWidth="1dp"
         app:cardCornerRadius="80dp">
 
         <ImageView
+            android:id="@+id/userAvt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:scaleType="centerInside"
             android:src="@drawable/avt" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="20dp"
-        android:text="Hi, Lê Văn Kiên"
+        android:textColor="@color/txt_color2"
+        tools:text="Hi, Lê Văn Kiên"
         android:textSize="18sp" />
 
     <View

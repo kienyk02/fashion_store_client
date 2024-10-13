@@ -1,6 +1,8 @@
 package com.example.fashionstoreapp.screen
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -15,26 +17,40 @@ import com.example.fashionstoreapp.databinding.FragmentNavigationBinding
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.ExpendedMenuModel
+import com.example.fashionstoreapp.data.network.JwtManager
+import com.example.fashionstoreapp.databinding.NavHeaderBinding
 import com.example.fashionstoreapp.screen.adapter.ExpandableListAdapter
 import com.example.fashionstoreapp.screen.adapter.MyPagerAdapter
 import com.example.fashionstoreapp.screen.product.SearchFragment
 import com.example.fashionstoreapp.screen.setting.ProfileFragment
 import com.example.fashionstoreapp.screen.setting.SettingFragment
 import com.example.fashionstoreapp.screen.viewmodel.SearchViewModel
+import com.example.fashionstoreapp.screen.viewmodel.UserViewModel
 
 
 class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: FragmentNavigationBinding
+    private lateinit var navHeaderBinding: NavHeaderBinding
+
     private val searchViewModel by lazy {
         ViewModelProvider(requireActivity())[SearchViewModel::class.java]
+    }
+
+    private val viewModel: UserViewModel by lazy {
+        ViewModelProvider(
+            this,
+            UserViewModel.UserViewModelFactory(requireActivity().application)
+        )[UserViewModel::class.java]
     }
 
     private val controller by lazy {
         findNavController()
     }
+
     private lateinit var expandableListAdapter: ExpandableListAdapter
     private lateinit var titleList: List<ExpendedMenuModel>
     private lateinit var dataList: HashMap<ExpendedMenuModel, List<ExpendedMenuModel>>
@@ -45,11 +61,14 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNavigationBinding.inflate(inflater, container, false)
+        val headerView = binding.navigationView.getHeaderView(0)
+        navHeaderBinding = NavHeaderBinding.bind(headerView)
 
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(false)
 
         initListData()
+        getUserInfo()
         setUptViewPager()
         setUptNavigationMenu()
         setUpExpandableView()
@@ -57,6 +76,9 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         handleSearch()
         binding.fabCart.setOnClickListener {
             controller.navigate(R.id.action_navigationFragment_to_cartFragment)
+        }
+        binding.btnLogout.setOnClickListener {
+            signOut()
         }
 
         return binding.root
@@ -81,6 +103,18 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         dataList[titleList[1]] = subItems
         dataList[titleList[2]] = emptyList()
         dataList[titleList[3]] = emptyList()
+    }
+
+    private fun getUserInfo() {
+        viewModel.user.observe(viewLifecycleOwner, Observer {
+            if (it.id != 0){
+                val imageBytes = Base64.decode(it.avatarImage, Base64.DEFAULT)
+                val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                navHeaderBinding.userAvt.setImageBitmap(decodedImage)
+                navHeaderBinding.userName.text = it.name
+            }
+        })
+        viewModel.getUserInfo()
     }
 
     private fun setUptViewPager() {
@@ -201,5 +235,11 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
             }
         })
 
+    }
+
+    private fun signOut() {
+        JwtManager.removeJwtToken(requireContext())
+        JwtManager.CURRENT_JWT = JwtManager.getJwtToken(requireActivity().application)
+        controller.navigate(R.id.action_navigationFragment_to_loginFragment)
     }
 }
