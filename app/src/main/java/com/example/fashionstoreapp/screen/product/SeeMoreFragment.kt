@@ -60,7 +60,7 @@ class SeeMoreFragment : Fragment() {
         binding.rvCategory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         categoryAdapter.onItemClick = {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
         }
         categoryAdapter.setData(listCategory)
     }
@@ -83,14 +83,14 @@ class SeeMoreFragment : Fragment() {
     }
 
     private fun initFakeDate() {
-        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
-        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
-        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
-        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
+//        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
+//        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
+//        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
+//        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
+//        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
+//        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
+//        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
+//        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
 
         listCategory.add(Category(1, "All"))
         listCategory.add(Category(1, "Áo nam"))

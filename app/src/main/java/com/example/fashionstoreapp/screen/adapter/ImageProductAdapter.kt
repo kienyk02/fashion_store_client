@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.fashionstoreapp.databinding.ItemImageBinding
 import com.example.fashionstoreapp.databinding.ItemProductSlideBinding
 
@@ -46,7 +47,9 @@ class ImageProductAdapter(private var list: List<String>) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(image: String) {
             binding.apply {
-
+                Glide.with(binding.root.context)
+                    .load(image)
+                    .into(imageProduct)
             }
         }
     }

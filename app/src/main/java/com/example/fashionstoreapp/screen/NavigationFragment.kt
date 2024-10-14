@@ -28,6 +28,7 @@ import com.example.fashionstoreapp.screen.adapter.MyPagerAdapter
 import com.example.fashionstoreapp.screen.product.SearchFragment
 import com.example.fashionstoreapp.screen.setting.ProfileFragment
 import com.example.fashionstoreapp.screen.setting.SettingFragment
+import com.example.fashionstoreapp.screen.viewmodel.ProductsViewModel
 import com.example.fashionstoreapp.screen.viewmodel.SearchViewModel
 import com.example.fashionstoreapp.screen.viewmodel.UserViewModel
 

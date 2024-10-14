@@ -63,8 +63,8 @@ class CartFragment : Fragment() {
     }
 
     private fun initFakeDate() {
-        listCart.add(Cart(1, Product(1, "Premium Tagerine Shirt", 240000, ""), 2))
-        listCart.add(Cart(1, Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""), 2))
-        listCart.add(Cart(1, Product(1, "Premium Tagerine Shirt", 240000, ""), 1))
+//        listCart.add(Cart(1, Product(), 2))
+//        listCart.add(Cart(1, Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""), 2))
+//        listCart.add(Cart(1, Product(1, "Premium Tagerine Shirt", 240000, ""), 1))
     }
 }

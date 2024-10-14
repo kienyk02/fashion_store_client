@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.fashionstoreapp.data.model.Product
 import com.example.fashionstoreapp.databinding.ItemProductBinding
 
@@ -59,6 +60,10 @@ class ProductAdapter(private var listProduct: List<Product>) :
                 productPrice.text = formatPrice(product.price)
 
                 productName.isSelected = true
+
+                Glide.with(binding.root.context)
+                    .load(product.images[0])
+                    .into(productImage)
 
                 btnAddCart.setOnClickListener {
                     onAddCartClick?.invoke()

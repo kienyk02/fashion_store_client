@@ -78,7 +78,7 @@ class CategoryAdapter(private var listCategory: List<Category>) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(category: Category) {
             binding.apply {
-                categoryName.text = category.name
+                categoryName.text = category.categoryName
 
             }
         }

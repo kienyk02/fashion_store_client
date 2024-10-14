@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,16 +19,20 @@ import com.example.fashionstoreapp.screen.adapter.SlideAdapter
 import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.data.model.Product
 import com.example.fashionstoreapp.databinding.FragmentHomeBinding
+import com.example.fashionstoreapp.screen.viewmodel.ProductsViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+
+    private val productsViewModel: ProductsViewModel by lazy {
+        ViewModelProvider(this)[ProductsViewModel::class.java]
+    }
 
     private val controller by lazy {
         findNavController()
     }
 
     private var listSlide = mutableListOf<String>()
-    private var listProduct = mutableListOf<Product>()
     private var listCategory = mutableListOf<Category>()
 
     private lateinit var slideAdapter: SlideAdapter
@@ -41,6 +46,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        productsViewModel.fetchAllProducts()
 
         initFakeDate()
         setUpSlideRecycleView()
@@ -74,7 +81,7 @@ class HomeFragment : Fragment() {
         binding.rvCategory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         categoryAdapter.onItemClick = {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
         }
         categoryAdapter.setData(listCategory)
     }
@@ -93,7 +100,9 @@ class HomeFragment : Fragment() {
         productAdapter.onAddCartClick = {
             Toast.makeText(requireContext(), "Clicked Add Cart", Toast.LENGTH_SHORT).show()
         }
-        productAdapter.setData(listProduct)
+        productsViewModel.allProducts.observe(viewLifecycleOwner) {
+            productAdapter.setData(it)
+        }
     }
 
     private fun setUpBestProductRecycleView() {
@@ -110,18 +119,12 @@ class HomeFragment : Fragment() {
         bestProductAdapter.onAddCartClick = {
             Toast.makeText(requireContext(), "Clicked Add Cart", Toast.LENGTH_SHORT).show()
         }
-        bestProductAdapter.setData(listProduct)
+        productsViewModel.allProducts.observe(viewLifecycleOwner) {
+            bestProductAdapter.setData(it)
+        }
     }
 
     private fun initFakeDate() {
-        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
-        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
-        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
-        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
 
         listCategory.add(Category(1, "All"))
         listCategory.add(Category(1, "Áo nam"))

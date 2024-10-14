@@ -58,6 +58,7 @@ class DetailFragment : Fragment() {
         binding.txtTitleProduct.text = product.name
 //        binding.animeDescriptionTextView.text = product.description
         binding.txtPriceP.text = formatPrice(product.price)
+        binding.animeDescriptionTextView.text = product.description
     }
 
     private fun setUpImageProductRecyclerView() {
@@ -69,7 +70,7 @@ class DetailFragment : Fragment() {
         pagerSnapHelper.attachToRecyclerView(binding.rvImageProduct)
         imageAdapter.onItemClick = {
         }
-        imageAdapter.setData(listOf("", "", ""))
+        imageAdapter.setData(product.images)
     }
 
     private fun handleSaveFavorite() {
@@ -116,7 +117,7 @@ class DetailFragment : Fragment() {
         sizeAdapter.onItemClick = {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
-        sizeAdapter.setData(listOf("S", "M", "L", "XL", "XXL"))
+        sizeAdapter.setData(product.size)
     }
 
     private fun formatPrice(price: Int): String {

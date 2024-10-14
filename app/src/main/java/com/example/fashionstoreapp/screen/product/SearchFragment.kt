@@ -85,14 +85,14 @@ class SearchFragment : Fragment() {
     }
 
     private fun initFakeDate() {
-        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
-        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
-        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
-        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
-        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
+//        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
+//        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
+//        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
+//        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
+//        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
+//        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
+//        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
+//        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
 
         listCategory.add(Category(1, "All"))
         listCategory.add(Category(1, "Áo nam"))

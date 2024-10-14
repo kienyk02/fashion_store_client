@@ -1,3 +1,12 @@
 package com.example.fashionstoreapp.data.model
 
-data class Category(var id: Int, var name: String, var parentCategory: Category? = null)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Category(
+    var id: Int,
+    var categoryName: String,
+    var subCategories: Set<Category>? = null
+) :
+    Parcelable

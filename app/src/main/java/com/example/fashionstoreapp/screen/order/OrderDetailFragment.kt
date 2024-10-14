@@ -71,9 +71,9 @@ class OrderDetailFragment : Fragment() {
     }
 
     private fun initFakeData() {
-        listItem.add(ItemOrder(1, Product(1, "test", 1, ""), 10))
-        listItem.add(ItemOrder(1, Product(1, "test", 1, ""), 10))
-        listItem.add(ItemOrder(1, Product(1, "test", 1, ""), 10))
+//        listItem.add(ItemOrder(1, Product(1, "test", 1, ""), 10))
+//        listItem.add(ItemOrder(1, Product(1, "test", 1, ""), 10))
+//        listItem.add(ItemOrder(1, Product(1, "test", 1, ""), 10))
     }
 
     private fun formatPrice(price: Int): String {
