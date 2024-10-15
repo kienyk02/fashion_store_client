@@ -79,7 +79,6 @@ class CategoryAdapter(private var listCategory: List<Category>) :
         fun onBind(category: Category) {
             binding.apply {
                 categoryName.text = category.categoryName
-
             }
         }
     }

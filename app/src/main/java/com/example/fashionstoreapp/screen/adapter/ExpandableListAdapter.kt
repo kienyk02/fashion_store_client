@@ -7,16 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
+import androidx.annotation.Nullable
 import androidx.core.content.ContextCompat
 import com.example.fashionstoreapp.R
+import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.data.model.ExpendedMenuModel
 import com.example.fashionstoreapp.databinding.ListParentItemBinding
 import com.example.fashionstoreapp.databinding.ListSubItemBinding
 
 class ExpandableListAdapter(
     private val context: Context,
-    private val titleList: List<ExpendedMenuModel>,
-    private val dataList: HashMap<ExpendedMenuModel, List<ExpendedMenuModel>>
+    private var titleList: List<Category>,
+    private var dataList: HashMap<Category, List<Category>>
 ) : BaseExpandableListAdapter() {
 
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
@@ -51,6 +53,12 @@ class ExpandableListAdapter(
         return true
     }
 
+    fun setData(titleList: List<Category>, dataList: HashMap<Category, List<Category>>) {
+        this.titleList = titleList
+        this.dataList = dataList
+        notifyDataSetChanged()
+    }
+
     override fun getGroupView(
         listPosition: Int,
         isExpanded: Boolean,
@@ -63,9 +71,8 @@ class ExpandableListAdapter(
         } else {
             binding = ListParentItemBinding.bind(convertView)
         }
-        val item = getGroup(listPosition) as ExpendedMenuModel
-        binding.parentItem.text = item.title
-        binding.iconImage.setImageResource(item.iconImg)
+        val item = getGroup(listPosition) as Category
+        binding.parentItem.text = item.categoryName
 
         if (getChildrenCount(listPosition) == 0) {
             binding.expandIcon.visibility = View.GONE
@@ -111,8 +118,8 @@ class ExpandableListAdapter(
         } else {
             binding = ListSubItemBinding.bind(convertView)
         }
-        val item = getChild(listPosition, expandedListPosition) as ExpendedMenuModel
-        binding.subItem.text = item.title
+        val item = getChild(listPosition, expandedListPosition) as Category
+        binding.subItem.text = item.categoryName
         return binding.root
     }
 }

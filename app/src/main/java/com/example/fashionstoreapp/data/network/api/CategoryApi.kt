@@ -10,6 +10,9 @@ interface CategoryApi {
     @GET("api/v1/categories")
     suspend fun getCategories(): Response<List<Category>>
 
+    @GET("api/v1/categories/list")
+    suspend fun getCategoriesList(): Response<List<Category>>
+
     @GET("api/v1/categories/{id}")
     suspend fun getCategoryById(@Path("id") id: Int): Response<Category>
 

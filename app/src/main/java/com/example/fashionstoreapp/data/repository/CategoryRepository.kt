@@ -11,6 +11,8 @@ class CategoryRepository {
 
     suspend fun getCategories() = categoryApi.getCategories();
 
+    suspend fun getCategoriesList() = categoryApi.getCategoriesList();
+
     suspend fun getCategoryById(id: Int) = categoryApi.getCategoryById(id);
 
     suspend fun findAllSubCategoryIds(id: Int) = categoryApi.findAllSubCategoryIds(id);

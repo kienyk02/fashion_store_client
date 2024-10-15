@@ -19,6 +19,7 @@ import com.example.fashionstoreapp.screen.adapter.SlideAdapter
 import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.data.model.Product
 import com.example.fashionstoreapp.databinding.FragmentHomeBinding
+import com.example.fashionstoreapp.screen.viewmodel.CategoryViewModel
 import com.example.fashionstoreapp.screen.viewmodel.ProductsViewModel
 
 class HomeFragment : Fragment() {
@@ -26,6 +27,12 @@ class HomeFragment : Fragment() {
 
     private val productsViewModel: ProductsViewModel by lazy {
         ViewModelProvider(this)[ProductsViewModel::class.java]
+    }
+
+    private val categoryViewModel: CategoryViewModel by lazy {
+        ViewModelProvider(
+            this,
+        )[CategoryViewModel::class.java]
     }
 
     private val controller by lazy {
@@ -48,6 +55,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         productsViewModel.fetchAllProducts()
+        categoryViewModel.fetchCategoriesList()
 
         initFakeDate()
         setUpSlideRecycleView()
@@ -84,6 +92,12 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
         }
         categoryAdapter.setData(listCategory)
+
+        categoryViewModel.categories.observe(viewLifecycleOwner) {
+            val list = it.toMutableList()
+            list.add(0, Category(0, "Tất cả", HashSet()))
+            categoryAdapter.setData(list)
+        }
     }
 
     private fun setUpProductRecycleView() {
@@ -125,13 +139,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun initFakeDate() {
-
-        listCategory.add(Category(1, "All"))
-        listCategory.add(Category(1, "Áo nam"))
-        listCategory.add(Category(1, "Quần nam"))
-        listCategory.add(Category(1, "Mũ nam"))
-        listCategory.add(Category(1, "Phụ kiện"))
-
         listSlide.add("")
         listSlide.add("")
         listSlide.add("")

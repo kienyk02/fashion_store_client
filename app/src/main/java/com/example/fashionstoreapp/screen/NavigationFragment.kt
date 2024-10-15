@@ -20,6 +20,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.fashionstoreapp.R
+import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.data.model.ExpendedMenuModel
 import com.example.fashionstoreapp.data.network.JwtManager
 import com.example.fashionstoreapp.databinding.NavHeaderBinding
@@ -28,6 +29,7 @@ import com.example.fashionstoreapp.screen.adapter.MyPagerAdapter
 import com.example.fashionstoreapp.screen.product.SearchFragment
 import com.example.fashionstoreapp.screen.setting.ProfileFragment
 import com.example.fashionstoreapp.screen.setting.SettingFragment
+import com.example.fashionstoreapp.screen.viewmodel.CategoryViewModel
 import com.example.fashionstoreapp.screen.viewmodel.ProductsViewModel
 import com.example.fashionstoreapp.screen.viewmodel.SearchViewModel
 import com.example.fashionstoreapp.screen.viewmodel.UserViewModel
@@ -48,13 +50,17 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         )[UserViewModel::class.java]
     }
 
+    private val categoryViewModel: CategoryViewModel by lazy {
+        ViewModelProvider(
+            this,
+        )[CategoryViewModel::class.java]
+    }
+
     private val controller by lazy {
         findNavController()
     }
 
     private lateinit var expandableListAdapter: ExpandableListAdapter
-    private lateinit var titleList: List<ExpendedMenuModel>
-    private lateinit var dataList: HashMap<ExpendedMenuModel, List<ExpendedMenuModel>>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +74,6 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        initListData()
         getUserInfo()
         setUptViewPager()
         setUptNavigationMenu()
@@ -85,30 +90,9 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         return binding.root
     }
 
-    private fun initListData() {
-        titleList = listOf(
-            ExpendedMenuModel(1, "Áo nam", R.drawable.tshirt),
-            ExpendedMenuModel(2, "Quần nam", R.drawable.trouser),
-            ExpendedMenuModel(3, "Phụ kiện", R.drawable.accessory),
-            ExpendedMenuModel(4, "Lịch sử đặt hàng", R.drawable.truck),
-        )
-        dataList = HashMap()
-
-        val subItems = listOf(
-            ExpendedMenuModel(1, "Áo nam xuân hè", R.drawable.ic_launcher_foreground),
-            ExpendedMenuModel(2, "Áo thun nam", R.drawable.ic_launcher_foreground),
-            ExpendedMenuModel(3, "Áo sơ mi nam", R.drawable.ic_launcher_foreground)
-        )
-
-        dataList[titleList[0]] = subItems
-        dataList[titleList[1]] = subItems
-        dataList[titleList[2]] = emptyList()
-        dataList[titleList[3]] = emptyList()
-    }
-
     private fun getUserInfo() {
         viewModel.user.observe(viewLifecycleOwner, Observer {
-            if (it.id != 0){
+            if (it.id != 0) {
                 val imageBytes = Base64.decode(it.avatarImage, Base64.DEFAULT)
                 val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
                 navHeaderBinding.userAvt.setImageBitmap(decodedImage)
@@ -147,8 +131,19 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
     }
 
     private fun setUpExpandableView() {
-        expandableListAdapter = ExpandableListAdapter(requireContext(), titleList, dataList)
+        categoryViewModel.fetchCategoriesList()
+        expandableListAdapter = ExpandableListAdapter(requireContext(), emptyList(), HashMap())
         binding.expandableListView.setAdapter(expandableListAdapter)
+
+        categoryViewModel.categories.observe(viewLifecycleOwner, Observer {
+            val titleList: MutableList<Category> = it.toMutableList()
+            titleList.add(Category(0, "Lịch sử mua hàng", HashSet()))
+            val dataList: HashMap<Category, List<Category>> = HashMap()
+            for (i: Category in titleList) {
+                dataList[i] = i.subCategories?.toList()!!
+            }
+            expandableListAdapter.setData(titleList, dataList)
+        })
 
         binding.expandableListView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
             Toast.makeText(
@@ -162,13 +157,13 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
 
         binding.expandableListView.setOnGroupClickListener { _, _, groupPosition, _ ->
             if (expandableListAdapter.getChildrenCount(groupPosition) == 0) {
-                val item = expandableListAdapter.getGroup(groupPosition) as ExpendedMenuModel
+                val item = expandableListAdapter.getGroup(groupPosition)
                 Toast.makeText(
                     requireContext(),
                     "Clicked on group: $item", Toast.LENGTH_SHORT
                 ).show()
             }
-            if (groupPosition == titleList.size - 1)
+            if (groupPosition == expandableListAdapter.groupCount - 1)
                 controller.navigate(R.id.action_navigationFragment_to_orderHistoryFragment)
             false
         }
