@@ -56,6 +56,10 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         )[CategoryViewModel::class.java]
     }
 
+    private val productsViewModel: ProductsViewModel by lazy {
+        ViewModelProvider(requireActivity())[ProductsViewModel::class.java]
+    }
+
     private val controller by lazy {
         findNavController()
     }
@@ -146,25 +150,24 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         })
 
         binding.expandableListView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
-            Toast.makeText(
-                requireContext(),
-                "Clicked: " + expandableListAdapter.getChild(groupPosition, childPosition),
-                Toast.LENGTH_SHORT
-            ).show()
-
+            productsViewModel.getProductsByCategory(
+                (expandableListAdapter.getChild(
+                    groupPosition,
+                    childPosition
+                ) as Category).id
+            )
+            binding.drawerLayout.closeDrawer(binding.navigationView)
             false
         }
 
         binding.expandableListView.setOnGroupClickListener { _, _, groupPosition, _ ->
-            if (expandableListAdapter.getChildrenCount(groupPosition) == 0) {
-                val item = expandableListAdapter.getGroup(groupPosition)
-                Toast.makeText(
-                    requireContext(),
-                    "Clicked on group: $item", Toast.LENGTH_SHORT
-                ).show()
-            }
-            if (groupPosition == expandableListAdapter.groupCount - 1)
+            if (groupPosition == expandableListAdapter.groupCount - 1) {
                 controller.navigate(R.id.action_navigationFragment_to_orderHistoryFragment)
+            } else if (expandableListAdapter.getChildrenCount(groupPosition) == 0) {
+                val item = expandableListAdapter.getGroup(groupPosition) as Category
+                productsViewModel.getProductsByCategory(item.id)
+                binding.drawerLayout.closeDrawer(binding.navigationView)
+            }
             false
         }
     }

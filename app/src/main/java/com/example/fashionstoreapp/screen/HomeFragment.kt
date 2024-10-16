@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val productsViewModel: ProductsViewModel by lazy {
-        ViewModelProvider(this)[ProductsViewModel::class.java]
+        ViewModelProvider(requireActivity())[ProductsViewModel::class.java]
     }
 
     private val categoryViewModel: CategoryViewModel by lazy {
@@ -89,7 +89,11 @@ class HomeFragment : Fragment() {
         binding.rvCategory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         categoryAdapter.onItemClick = {
-            Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
+            if (it.id == 0) {
+                productsViewModel.fetchAllProducts()
+            } else {
+                productsViewModel.getProductsByCategory(it.id)
+            }
         }
         categoryAdapter.setData(listCategory)
 
@@ -109,12 +113,13 @@ class HomeFragment : Fragment() {
             val bundle = Bundle().apply {
                 putParcelable("product", it)
             }
+
             controller.navigate(R.id.action_navigationFragment_to_detailFragment, bundle)
         }
         productAdapter.onAddCartClick = {
             Toast.makeText(requireContext(), "Clicked Add Cart", Toast.LENGTH_SHORT).show()
         }
-        productsViewModel.allProducts.observe(viewLifecycleOwner) {
+        productsViewModel.homeProducts.observe(viewLifecycleOwner) {
             productAdapter.setData(it)
         }
     }
@@ -133,7 +138,7 @@ class HomeFragment : Fragment() {
         bestProductAdapter.onAddCartClick = {
             Toast.makeText(requireContext(), "Clicked Add Cart", Toast.LENGTH_SHORT).show()
         }
-        productsViewModel.allProducts.observe(viewLifecycleOwner) {
+        productsViewModel.homeProducts.observe(viewLifecycleOwner) {
             bestProductAdapter.setData(it)
         }
     }

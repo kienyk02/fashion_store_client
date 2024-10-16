@@ -47,13 +47,48 @@
                     tools:text="Premium Tagerine Shirt" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/detail2"
-                android:textColor="@color/txt_color2"
-                android:textSize="18sp" />
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="4"
+                    android:text="@string/detail2"
+                    android:textColor="@color/txt_color2"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="6"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/txt_color2"
+                        android:textSize="18sp"
+                        tools:text="Xanh Dương" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/animeDescriptionTextView"

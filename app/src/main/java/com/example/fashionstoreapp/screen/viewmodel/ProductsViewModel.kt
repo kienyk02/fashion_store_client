@@ -20,19 +20,23 @@ class ProductsViewModel() : ViewModel() {
 
     // Display
     private val _searchProducts = MutableLiveData<List<Product>>()
+    private val _homeProducts = MutableLiveData<List<Product>>()
 
     // Save data in these
     val suggestProducts: LiveData<List<Product>> = _suggestProducts
     val allProducts: LiveData<List<Product>> = _allProducts
     val searchProducts: LiveData<List<Product>> = _searchProducts
+    val homeProducts: LiveData<List<Product>> = _homeProducts
 
 
     fun fetchAllProducts() = viewModelScope.launch(Dispatchers.IO) {
         val response = productRepository.getProducts()
         if (response.isSuccessful) {
             _allProducts.postValue(response.body())
+            _homeProducts.postValue(response.body())
         } else {
             _allProducts.postValue(emptyList())
+            _homeProducts.postValue(emptyList())
         }
     }
 
@@ -42,6 +46,15 @@ class ProductsViewModel() : ViewModel() {
             _searchProducts.postValue(response.body())
         } else {
             _searchProducts.postValue(emptyList())
+        }
+    }
+
+    fun getProductsByCategory(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        val response = productRepository.getProductsByCategory(id)
+        if (response.isSuccessful) {
+            _homeProducts.postValue(response.body())
+        } else {
+            _homeProducts.postValue(emptyList())
         }
     }
 

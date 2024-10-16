@@ -15,6 +15,7 @@ import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.Product
 import com.example.fashionstoreapp.databinding.FragmentDetailBinding
 import com.example.fashionstoreapp.databinding.HeaderLayoutBinding
+import com.example.fashionstoreapp.screen.adapter.ColorSelectAdapter
 import com.example.fashionstoreapp.screen.adapter.ImageProductAdapter
 import com.example.fashionstoreapp.screen.adapter.SizeAdapter
 
@@ -28,6 +29,7 @@ class DetailFragment : Fragment() {
 
     private lateinit var product: Product
     private lateinit var imageAdapter: ImageProductAdapter
+    private lateinit var colorAdapter: ColorSelectAdapter
     private lateinit var sizeAdapter: SizeAdapter
     private var isExpanded = false
 
@@ -48,6 +50,7 @@ class DetailFragment : Fragment() {
         handleSaveFavorite()
         setUpImageProductRecyclerView()
         handleSeeMoreContent()
+        setUpColorRecyclerView()
         setUpSizeRecyclerView()
 
         return binding.root
@@ -56,7 +59,6 @@ class DetailFragment : Fragment() {
     private fun setUpData() {
         product = arguments?.getParcelable("product")!!
         binding.txtTitleProduct.text = product.name
-//        binding.animeDescriptionTextView.text = product.description
         binding.txtPriceP.text = formatPrice(product.price)
         binding.animeDescriptionTextView.text = product.description
     }
@@ -70,7 +72,7 @@ class DetailFragment : Fragment() {
         pagerSnapHelper.attachToRecyclerView(binding.rvImageProduct)
         imageAdapter.onItemClick = {
         }
-        imageAdapter.setData(product.images)
+        imageAdapter.setData(product.colors[0].images)
     }
 
     private fun handleSaveFavorite() {
@@ -109,15 +111,30 @@ class DetailFragment : Fragment() {
         binding.seeMore.setOnClickListener(seeMoreListener)
     }
 
+
+    private fun setUpColorRecyclerView() {
+        colorAdapter = ColorSelectAdapter(listOf())
+        binding.rvColor.adapter = colorAdapter
+        binding.rvColor.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        colorAdapter.onItemClick = {
+            binding.txtColor.text = it.name
+            imageAdapter.setData(it.images)
+            sizeAdapter.setData(it.sizes)
+        }
+        binding.txtColor.text = product.colors[0].name
+        colorAdapter.setData(product.colors)
+    }
+
     private fun setUpSizeRecyclerView() {
         sizeAdapter = SizeAdapter(listOf())
         binding.rvSize.adapter = sizeAdapter
         binding.rvSize.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         sizeAdapter.onItemClick = {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
         }
-        sizeAdapter.setData(product.size)
+        sizeAdapter.setData(product.colors[0].sizes)
     }
 
     private fun formatPrice(price: Int): String {

@@ -7,12 +7,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.Category
+import com.example.fashionstoreapp.data.model.Size
 import com.example.fashionstoreapp.databinding.ItemCategoryBinding
 import com.example.fashionstoreapp.databinding.ItemSizeBinding
 
-class SizeAdapter(private var listSize: List<String>) :
+class SizeAdapter(private var listSize: List<Size>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var onItemClick: ((String) -> Unit)? = null
+    var onItemClick: ((Size) -> Unit)? = null
     var selectedPosition = 0
 
     override fun onCreateViewHolder(
@@ -70,16 +71,16 @@ class SizeAdapter(private var listSize: List<String>) :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(list: List<String>) {
+    fun setData(list: List<Size>) {
         this.listSize = list
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(val binding: ItemSizeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(size: String) {
+        fun onBind(size: Size) {
             binding.apply {
-                sizeName.text = size
+                sizeName.text = size.name
             }
         }
     }

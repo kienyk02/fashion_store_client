@@ -62,7 +62,7 @@ class ProductAdapter(private var listProduct: List<Product>) :
                 productName.isSelected = true
 
                 Glide.with(binding.root.context)
-                    .load(product.images[0])
+                    .load(product.colors[0].images[0])
                     .into(productImage)
 
                 btnAddCart.setOnClickListener {
