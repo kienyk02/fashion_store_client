@@ -121,6 +121,7 @@ class DetailFragment : Fragment() {
             binding.txtColor.text = it.name
             imageAdapter.setData(it.images)
             sizeAdapter.setData(it.sizes)
+            binding.rvImageProduct.scrollToPosition(0)
         }
         binding.txtColor.text = product.colors[0].name
         colorAdapter.setData(product.colors)

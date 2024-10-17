@@ -19,13 +19,15 @@ class CategoryViewModel : ViewModel() {
     val categories: LiveData<List<Category>> = _categories
 
     fun fetchCategoriesList() = viewModelScope.launch(Dispatchers.IO) {
-        val response = categoryRepository.getCategoriesList()
-        if (response.isSuccessful) {
-            _categories.postValue(response.body())
-        } else {
-            _categories.postValue(emptyList())
+        try {
+            val response = categoryRepository.getCategoriesList()
+            if (response.isSuccessful) {
+                _categories.postValue(response.body())
+            } else {
+                _categories.postValue(emptyList())
+            }
+        } catch (e: Exception) {
+            Log.d("categoryError", e.toString())
         }
     }
-
-
 }

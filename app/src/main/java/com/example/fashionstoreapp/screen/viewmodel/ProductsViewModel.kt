@@ -30,31 +30,43 @@ class ProductsViewModel() : ViewModel() {
 
 
     fun fetchAllProducts() = viewModelScope.launch(Dispatchers.IO) {
-        val response = productRepository.getProducts()
-        if (response.isSuccessful) {
-            _allProducts.postValue(response.body())
-            _homeProducts.postValue(response.body())
-        } else {
-            _allProducts.postValue(emptyList())
-            _homeProducts.postValue(emptyList())
+        try {
+            val response = productRepository.getProducts()
+            if (response.isSuccessful) {
+                _allProducts.postValue(response.body())
+                _homeProducts.postValue(response.body())
+            } else {
+                _allProducts.postValue(emptyList())
+                _homeProducts.postValue(emptyList())
+            }
+        } catch (e: Exception) {
+            Log.d("productError", e.toString())
         }
     }
 
     fun searchProducts(keyword: String) = viewModelScope.launch(Dispatchers.IO) {
-        val response = productRepository.searchProducts(keyword)
-        if (response.isSuccessful) {
-            _searchProducts.postValue(response.body())
-        } else {
-            _searchProducts.postValue(emptyList())
+        try {
+            val response = productRepository.searchProducts(keyword)
+            if (response.isSuccessful) {
+                _searchProducts.postValue(response.body())
+            } else {
+                _searchProducts.postValue(emptyList())
+            }
+        } catch (e: Exception) {
+            Log.d("productError", e.toString())
         }
     }
 
     fun getProductsByCategory(id: Int) = viewModelScope.launch(Dispatchers.IO) {
-        val response = productRepository.getProductsByCategory(id)
-        if (response.isSuccessful) {
-            _homeProducts.postValue(response.body())
-        } else {
-            _homeProducts.postValue(emptyList())
+        try {
+            val response = productRepository.getProductsByCategory(id)
+            if (response.isSuccessful) {
+                _homeProducts.postValue(response.body())
+            } else {
+                _homeProducts.postValue(emptyList())
+            }
+        } catch (e: Exception) {
+            Log.d("productError", e.toString())
         }
     }
 

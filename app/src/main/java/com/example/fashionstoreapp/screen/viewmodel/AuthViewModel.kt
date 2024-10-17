@@ -1,6 +1,7 @@
 package com.example.fashionstoreapp.screen.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,20 +25,28 @@ class AuthViewModel(application: Application) : ViewModel() {
     val signUpResponse: LiveData<MessageResponse?> = _signUpResponse
 
     fun signIn(request: SigninRequest) = viewModelScope.launch(Dispatchers.IO) {
-        val response = authRepository.signIn(request)
-        if (response.isSuccessful) {
-            _signInResponse.postValue(response.body())
-        } else {
-            _signInResponse.postValue(null)
+        try {
+            val response = authRepository.signIn(request)
+            if (response.isSuccessful) {
+                _signInResponse.postValue(response.body())
+            } else {
+                _signInResponse.postValue(null)
+            }
+        } catch (e: Exception) {
+            Log.d("authError", e.toString())
         }
     }
 
     fun signUp(request: SignupRequest) = viewModelScope.launch(Dispatchers.IO) {
-        val response = authRepository.signUp(request)
-        if (response.isSuccessful) {
-            _signUpResponse.postValue(response.body())
-        } else {
-            _signUpResponse.postValue(null)
+        try {
+            val response = authRepository.signUp(request)
+            if (response.isSuccessful) {
+                _signUpResponse.postValue(response.body())
+            } else {
+                _signUpResponse.postValue(null)
+            }
+        } catch (e: Exception) {
+            Log.d("authError", e.toString())
         }
     }
 

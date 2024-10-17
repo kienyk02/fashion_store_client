@@ -1,6 +1,7 @@
 package com.example.fashionstoreapp.screen.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,11 +29,15 @@ class UserViewModel(application: Application) : ViewModel() {
     var responseUpdateAddress: LiveData<MessageResponse> = _responseUpdateAddress
 
     fun getUserInfo() = viewModelScope.launch(Dispatchers.IO) {
-        val response = userRepository.getUserInfo()
-        if (response.isSuccessful) {
-            _user.postValue(response.body())
-        } else {
-            _user.postValue(User(0))
+        try {
+            val response = userRepository.getUserInfo()
+            if (response.isSuccessful) {
+                _user.postValue(response.body())
+            } else {
+                _user.postValue(User(0))
+            }
+        } catch (e: Exception) {
+            Log.d("userError", e.toString())
         }
     }
 
@@ -42,21 +47,29 @@ class UserViewModel(application: Application) : ViewModel() {
         phoneNumber: RequestBody,
         avatarImage: MultipartBody.Part
     ) = viewModelScope.launch(Dispatchers.IO) {
-        val response = userRepository.updateUserInfo(name, gender, phoneNumber, avatarImage)
-        if (response.isSuccessful) {
-            _responseUpdateUser.postValue(response.body())
-        } else {
-            _responseUpdateUser.postValue(MessageResponse("Update Fail!"))
+        try {
+            val response = userRepository.updateUserInfo(name, gender, phoneNumber, avatarImage)
+            if (response.isSuccessful) {
+                _responseUpdateUser.postValue(response.body())
+            } else {
+                _responseUpdateUser.postValue(MessageResponse("Update Fail!"))
+            }
+        } catch (e: Exception) {
+            Log.d("userError", e.toString())
         }
     }
 
 
     fun updateAddress(address: RequestBody) = viewModelScope.launch(Dispatchers.IO) {
-        val reponse = userRepository.updateAddress(address)
-        if (reponse.isSuccessful) {
-            _responseUpdateAddress.postValue(reponse.body())
-        } else {
-            _responseUpdateAddress.postValue(MessageResponse("Update Fail!"))
+        try {
+            val reponse = userRepository.updateAddress(address)
+            if (reponse.isSuccessful) {
+                _responseUpdateAddress.postValue(reponse.body())
+            } else {
+                _responseUpdateAddress.postValue(MessageResponse("Update Fail!"))
+            }
+        } catch (e: Exception) {
+            Log.d("userError", e.toString())
         }
     }
 
