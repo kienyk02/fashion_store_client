@@ -10,7 +10,7 @@ class Product(
     var name: String = "",
     var description: String = "",
     var price: Int,
-    var isAvailable: Boolean,
+    var sales: Int,
     var colors: List<Color>,
     var material: String = "",
     var style: String = "",

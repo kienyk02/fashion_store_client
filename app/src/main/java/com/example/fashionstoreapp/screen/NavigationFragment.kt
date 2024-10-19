@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.fashionstoreapp.Contants.LIMIT
+import com.example.fashionstoreapp.Contants.PAGE
 import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.data.model.ExpendedMenuModel
@@ -154,7 +156,9 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                 (expandableListAdapter.getChild(
                     groupPosition,
                     childPosition
-                ) as Category).id
+                ) as Category).id,
+                PAGE,
+                LIMIT
             )
             binding.drawerLayout.closeDrawer(binding.navigationView)
             false
@@ -165,7 +169,7 @@ class NavigationFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                 controller.navigate(R.id.action_navigationFragment_to_orderHistoryFragment)
             } else if (expandableListAdapter.getChildrenCount(groupPosition) == 0) {
                 val item = expandableListAdapter.getGroup(groupPosition) as Category
-                productsViewModel.getProductsByCategory(item.id)
+                productsViewModel.getProductsByCategory(item.id, PAGE, LIMIT)
                 binding.drawerLayout.closeDrawer(binding.navigationView)
             }
             false

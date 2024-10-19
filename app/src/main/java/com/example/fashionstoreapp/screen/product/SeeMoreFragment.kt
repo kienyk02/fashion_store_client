@@ -8,10 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fashionstoreapp.Contants.LIMIT
+import com.example.fashionstoreapp.Contants.PAGE
 import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.data.model.Product
@@ -19,6 +22,8 @@ import com.example.fashionstoreapp.databinding.FragmentSeeMoreBinding
 import com.example.fashionstoreapp.databinding.HeaderLayoutBinding
 import com.example.fashionstoreapp.screen.adapter.CategoryAdapter
 import com.example.fashionstoreapp.screen.adapter.ProductAdapter
+import com.example.fashionstoreapp.screen.viewmodel.CategoryViewModel
+import com.example.fashionstoreapp.screen.viewmodel.ProductsViewModel
 
 class SeeMoreFragment : Fragment() {
     private lateinit var binding: FragmentSeeMoreBinding
@@ -27,12 +32,21 @@ class SeeMoreFragment : Fragment() {
     private val controller by lazy {
         findNavController()
     }
-    private var listProduct = mutableListOf<Product>()
-    private var listCategory = mutableListOf<Category>()
+
+    private val productsViewModel: ProductsViewModel by lazy {
+        ViewModelProvider(this)[ProductsViewModel::class.java]
+    }
+
+    private val categoryViewModel: CategoryViewModel by lazy {
+        ViewModelProvider(
+            this,
+        )[CategoryViewModel::class.java]
+    }
 
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var productAdapter: ProductAdapter
     private var isLoading = false
+    private var currPage = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +57,8 @@ class SeeMoreFragment : Fragment() {
         headerBinding = binding.layoutHeader
         headerBinding.txtTitle.text = getString(R.string.app_name)
 
-        initFakeDate()
+        productsViewModel.fetchAllProducts(PAGE, LIMIT)
+        categoryViewModel.fetchCategoriesList()
         setUpCategoryRecycleView()
         setUpProductRecycleView()
         setUpLoadMore()
@@ -60,9 +75,17 @@ class SeeMoreFragment : Fragment() {
         binding.rvCategory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         categoryAdapter.onItemClick = {
-            Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
+            if (it.id == 0) {
+                productsViewModel.fetchAllProducts(PAGE, LIMIT)
+            } else {
+                productsViewModel.getProductsByCategory(it.id, PAGE, LIMIT)
+            }
         }
-        categoryAdapter.setData(listCategory)
+        categoryViewModel.categories.observe(viewLifecycleOwner) {
+            val list = it.toMutableList()
+            list.add(0, Category(0, "Tất cả", HashSet()))
+            categoryAdapter.setData(list)
+        }
     }
 
     private fun setUpProductRecycleView() {
@@ -79,24 +102,9 @@ class SeeMoreFragment : Fragment() {
         productAdapter.onAddCartClick = {
             Toast.makeText(requireContext(), "Clicked Add Cart", Toast.LENGTH_SHORT).show()
         }
-        productAdapter.setData(listProduct)
-    }
-
-    private fun initFakeDate() {
-//        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
-//        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
-//        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
-//        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
-//        listProduct.add(Product(1, "Áo sơ mi nam ngắn thoang mat mac mua he", 240000, ""))
-//        listProduct.add(Product(1, "Tagerine Shirt", 199000, ""))
-//        listProduct.add(Product(1, "Quần tây nam Fashion sieu dep vip pro", 300000, ""))
-//        listProduct.add(Product(1, "Tagerine Shirt", 290000, ""))
-
-        listCategory.add(Category(1, "All"))
-        listCategory.add(Category(1, "Áo nam"))
-        listCategory.add(Category(1, "Quần nam"))
-        listCategory.add(Category(1, "Mũ nam"))
-        listCategory.add(Category(1, "Phụ kiện"))
+        productsViewModel.seeMoreProducts.observe(viewLifecycleOwner) {
+            productAdapter.addData(it)
+        }
     }
 
     private fun setUpLoadMore() {
@@ -113,7 +121,6 @@ class SeeMoreFragment : Fragment() {
                     isLoading = true
                     loadMoreItems()
                     showLoading()
-
                 }
             }
         })
@@ -132,7 +139,13 @@ class SeeMoreFragment : Fragment() {
 
     private fun loadMoreItems() {
         Handler(Looper.getMainLooper()).postDelayed({
-
+            currPage++
+            val categoryId = categoryAdapter.listCategory[categoryAdapter.selectedPosition].id
+            if (categoryId == 0) {
+                productsViewModel.fetchAllProducts(currPage, LIMIT)
+            } else {
+                productsViewModel.getProductsByCategory(categoryId, currPage, LIMIT)
+            }
             hideLoading()
         }, 1000)
     }

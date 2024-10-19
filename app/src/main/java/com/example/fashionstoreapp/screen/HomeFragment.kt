@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.example.fashionstoreapp.Contants.LIMIT
+import com.example.fashionstoreapp.Contants.PAGE
 import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.screen.adapter.CategoryAdapter
 import com.example.fashionstoreapp.screen.adapter.ProductAdapter
@@ -54,7 +56,8 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        productsViewModel.fetchAllProducts()
+        productsViewModel.fetchAllProducts(PAGE, LIMIT)
+        productsViewModel.fetchProductsBestSeller()
         categoryViewModel.fetchCategoriesList()
 
         initFakeDate()
@@ -90,9 +93,9 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         categoryAdapter.onItemClick = {
             if (it.id == 0) {
-                productsViewModel.fetchAllProducts()
+                productsViewModel.fetchAllProducts(PAGE, LIMIT)
             } else {
-                productsViewModel.getProductsByCategory(it.id)
+                productsViewModel.getProductsByCategory(it.id, PAGE, LIMIT)
             }
         }
         categoryAdapter.setData(listCategory)
@@ -121,6 +124,11 @@ class HomeFragment : Fragment() {
         }
         productsViewModel.homeProducts.observe(viewLifecycleOwner) {
             productAdapter.setData(it)
+            if (it.size == LIMIT) {
+                binding.seeMoreWrapper.visibility = View.VISIBLE
+            } else {
+                binding.seeMoreWrapper.visibility = View.GONE
+            }
         }
     }
 
@@ -138,7 +146,7 @@ class HomeFragment : Fragment() {
         bestProductAdapter.onAddCartClick = {
             Toast.makeText(requireContext(), "Clicked Add Cart", Toast.LENGTH_SHORT).show()
         }
-        productsViewModel.homeProducts.observe(viewLifecycleOwner) {
+        productsViewModel.homeProductSort.observe(viewLifecycleOwner) {
             bestProductAdapter.setData(it)
         }
     }
@@ -152,6 +160,7 @@ class HomeFragment : Fragment() {
 
     private fun handleBestSellerClick() {
         binding.btnBestSeller.setOnClickListener {
+            productsViewModel.fetchProductsBestSeller()
             binding.btnBestSeller.setTypeface(null, Typeface.BOLD)
             binding.btnBestDiscount.setTypeface(null, Typeface.NORMAL)
         }
@@ -159,6 +168,7 @@ class HomeFragment : Fragment() {
 
     private fun handleBestDiscountClick() {
         binding.btnBestDiscount.setOnClickListener {
+            productsViewModel.fetchProductsBestDiscount()
             binding.btnBestSeller.setTypeface(null, Typeface.NORMAL)
             binding.btnBestDiscount.setTypeface(null, Typeface.BOLD)
         }
@@ -174,5 +184,4 @@ class HomeFragment : Fragment() {
         super.onResume()
         Toast.makeText(requireContext(), "Home Fragment", Toast.LENGTH_SHORT).show()
     }
-
 }

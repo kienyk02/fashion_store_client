@@ -9,7 +9,7 @@ import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.databinding.ItemCategoryBinding
 
-class CategoryAdapter(private var listCategory: List<Category>) :
+class CategoryAdapter(var listCategory: List<Category>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onItemClick: ((Category) -> Unit)? = null
     var selectedPosition = 0

@@ -8,9 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
 
-    private const val IP = "192.168.1.12"
+    private const val IP = "192.168.2.108"
 //    192.168.165.221
     private const val BASE_URL = "http://$IP:8080/"
+//    private const val BASE_URL = "https://fahsionstoreserver-production.up.railway.app/"
 
     val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
