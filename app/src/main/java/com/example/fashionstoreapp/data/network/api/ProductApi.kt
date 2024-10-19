@@ -44,4 +44,15 @@ interface ProductApi {
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Response<List<Product>>
+
+    @GET("api/v1/products/filter")
+    suspend fun getProductSearchWithFilter(
+        @Query("categoryIds") categoryIds: List<Int>,
+        @Query("keyword") keyword: String,
+        @Query("fromPrice") fromPrice: Int,
+        @Query("toPrice") toPrice: Int,
+        @Query("sort") sort: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): Response<List<Product>>
 }

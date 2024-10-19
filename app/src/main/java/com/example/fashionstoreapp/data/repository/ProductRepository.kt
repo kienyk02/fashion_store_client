@@ -30,4 +30,23 @@ class ProductRepository {
     suspend fun getProductsByCategory(id: Int, page: Int, limit: Int) =
         productApi.getProductsByCategory(id, page, limit)
 
+    suspend fun getProductSearchWithFilter(
+        categoryIds: List<Int>,
+        keyword: String,
+        fromPrice: Int,
+        toPrice: Int,
+        sort: String,
+        page: Int,
+        limit: Int
+    ) =
+        productApi.getProductSearchWithFilter(
+            categoryIds,
+            keyword,
+            fromPrice,
+            toPrice,
+            sort,
+            page,
+            limit
+        )
+
 }

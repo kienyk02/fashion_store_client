@@ -28,25 +28,63 @@
         android:background="@color/txt_color1"
         app:layout_constraintTop_toBottomOf="@id/txtKey" />
 
+    <TextView
+        android:id="@+id/txtNumResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textColor="@color/gray_light2"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtKey"
+        tools:text="8 sản phẩm" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/filterWrapper"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/txtKey">
+        app:layout_constraintTop_toBottomOf="@id/txtNumResult">
 
         <TextView
-            android:id="@+id/txtNumResult"
+            android:id="@+id/txtPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/gray_light2"
+            android:text="@string/price"
+            android:textColor="@color/txt_color2"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnPriceASC"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/price_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txtPrice"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="8 sản phẩm" />
+            app:tint="@color/gray" />
+
+        <ImageView
+            android:id="@+id/btnPriceDESC"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:rotationX="180"
+            android:scaleType="centerInside"
+            android:src="@drawable/price_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnPriceASC"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/gray" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnFilter"
@@ -110,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:indeterminateTint="@color/primary_color"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

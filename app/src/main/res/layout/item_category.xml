@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/category_wrapper"
@@ -21,10 +22,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxWidth="130dp"
             android:paddingStart="10dp"
             android:paddingTop="7dp"
             android:paddingEnd="10dp"
             android:paddingBottom="7dp"
+            android:singleLine="true"
             android:textColor="@color/txt_color2"
             android:textSize="20sp"
             tools:text="All" />

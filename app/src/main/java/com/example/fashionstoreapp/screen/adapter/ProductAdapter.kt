@@ -52,6 +52,18 @@ class ProductAdapter(private var listProduct: List<Product>) :
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun sortProductsByPriceAscending() {
+        listProduct = listProduct.sortedBy { it.price }
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun sortProductsByPriceDescending() {
+        listProduct = listProduct.sortedByDescending { it.price }
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(product: Product) {

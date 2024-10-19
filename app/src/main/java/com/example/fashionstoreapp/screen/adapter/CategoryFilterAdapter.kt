@@ -9,10 +9,10 @@ import com.example.fashionstoreapp.R
 import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.databinding.ItemCategoryBinding
 
-class CategoryAdapter(var listCategory: List<Category>) :
+class CategoryFilterAdapter(var listCategory: List<Category>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onItemClick: ((Category) -> Unit)? = null
-    var selectedPosition = 0
+    var listCategoryId = mutableListOf<Int>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,13 +33,11 @@ class CategoryAdapter(var listCategory: List<Category>) :
         holder: RecyclerView.ViewHolder,
         position: Int,
     ) {
-        (holder as ViewHolder).onBind(listCategory[position])
-        holder.itemView.setOnClickListener {
-            onItemClick?.invoke(listCategory[position])
-            this.selectedPosition = position
-            notifyDataSetChanged()
-        }
-        if (selectedPosition == position) {
+        val category = listCategory[position]
+        (holder as ViewHolder).onBind(category)
+
+        val isSelected = listCategoryId.contains(category.id)
+        if (isSelected) {
             holder.binding.categoryWrapper.setCardBackgroundColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
@@ -66,6 +64,17 @@ class CategoryAdapter(var listCategory: List<Category>) :
                 )
             )
         }
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(listCategory[position])
+            if (isSelected) {
+                listCategoryId.remove(category.id)
+            } else {
+                listCategoryId.add(category.id)
+            }
+            notifyDataSetChanged()
+        }
+
     }
 
     @SuppressLint("NotifyDataSetChanged")

@@ -17,6 +17,7 @@ import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,10 +30,12 @@ import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.data.model.Product
 import com.example.fashionstoreapp.databinding.FragmentSearchBinding
 import com.example.fashionstoreapp.screen.adapter.CategoryAdapter
+import com.example.fashionstoreapp.screen.adapter.CategoryFilterAdapter
 import com.example.fashionstoreapp.screen.adapter.ProductAdapter
 import com.example.fashionstoreapp.screen.viewmodel.CategoryViewModel
 import com.example.fashionstoreapp.screen.viewmodel.ProductsViewModel
 import com.example.fashionstoreapp.screen.viewmodel.SearchViewModel
+import com.google.android.material.slider.RangeSlider
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
@@ -55,13 +58,17 @@ class SearchFragment : Fragment() {
         findNavController()
     }
 
-    private lateinit var seekBar: SeekBar
-    private var currentPrice: Int = 0
+    private lateinit var rangeSlider: RangeSlider
+    private var fromPrice: Int = 0
+    private var toPrice: Int = 2000000
     private var isLoading = false
     private var currPage = 1
+    private var isAsc = false
+    private var isDesc = false
 
     private lateinit var productAdapter: ProductAdapter
-    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var categoryAdapter: CategoryFilterAdapter
+    private val allCategoryId = mutableListOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,8 +78,10 @@ class SearchFragment : Fragment() {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         categoryViewModel.fetchCategoriesList()
+        categoryAdapter = CategoryFilterAdapter(listOf())
         setUpProductRecycleView()
         setUpLoadMore()
+        handleSortPrice()
         searchViewModel.key.observe(viewLifecycleOwner) {
             //reset list product
             productAdapter.setData(listOf())
@@ -109,6 +118,7 @@ class SearchFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun createDialogFilter() {
 
         val dialog = Dialog(requireContext())
@@ -116,23 +126,39 @@ class SearchFragment : Fragment() {
 
         val categoryRecyclerView = dialog.findViewById<RecyclerView>(R.id.rvCategoryPopup)
         categoryRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
-
-        val categoryAdapter = CategoryAdapter(listOf())
         categoryRecyclerView.adapter = categoryAdapter
 
         categoryViewModel.categories.observe(viewLifecycleOwner) {
             categoryAdapter.setData(it)
+            allCategoryId.clear()
+            for (i in it) {
+                allCategoryId.add(i.id)
+            }
         }
 
-        seekBar = dialog.findViewById(R.id.skPrice)
+        rangeSlider = dialog.findViewById(R.id.skPrice)
 
         val startPrice = dialog.findViewById<TextView>(R.id.tvStartPrice)
         val endPrice = dialog.findViewById<TextView>(R.id.tvEndPrice)
+        startPrice.text = formatPrice(fromPrice)
+        endPrice.text = formatPrice(toPrice)
 
         initializeSeekbar(startPrice, endPrice)
 
         dialog.findViewById<Button>(R.id.btnApply).setOnClickListener {
+            fetchProductSearchWithFilter()
+            productAdapter.setData(listOf())
             dialog.dismiss()
+        }
+
+        dialog.findViewById<TextView>(R.id.tvReset).setOnClickListener {
+            categoryAdapter.listCategoryId = mutableListOf()
+            categoryAdapter.notifyDataSetChanged()
+            fromPrice = 0
+            toPrice = 2000000
+            startPrice.text = formatPrice(fromPrice)
+            endPrice.text = formatPrice(toPrice)
+            rangeSlider.values = listOf(fromPrice / 20000f, toPrice / 20000f)
         }
 
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
@@ -148,6 +174,85 @@ class SearchFragment : Fragment() {
         )
 
         dialog.show()
+    }
+
+    private fun fetchProductSearchWithFilter() {
+        var sort = ""
+        if (isAsc) {
+            sort = "ASC"
+        } else if (isDesc) {
+            sort = "DESC"
+        }
+        if (categoryAdapter.listCategoryId.isEmpty()) {
+            productsViewModel.fetchProductSearchWithFilter(
+                allCategoryId,
+                binding.txtKey.text.toString(),
+                fromPrice,
+                toPrice,
+                sort,
+                currPage,
+                LIMIT
+            )
+        } else {
+            productsViewModel.fetchProductSearchWithFilter(
+                categoryAdapter.listCategoryId,
+                binding.txtKey.text.toString(),
+                fromPrice,
+                toPrice,
+                sort,
+                currPage,
+                LIMIT
+            )
+        }
+    }
+
+    private fun initializeSeekbar(startPrice: TextView, endPrice: TextView) {
+        rangeSlider.values = listOf(fromPrice / 20000f, toPrice / 20000f)
+        rangeSlider.addOnChangeListener { slider, value, fromUser ->
+            val values = slider.values
+            fromPrice = calculatePrice(values[0].toInt())
+            toPrice = calculatePrice(values[1].toInt())
+            startPrice.text = formatPrice(fromPrice)
+            endPrice.text = formatPrice(toPrice)
+        }
+    }
+
+    private fun handleSortPrice() {
+        binding.btnPriceASC.setOnClickListener {
+            productAdapter.sortProductsByPriceAscending()
+            isDesc = false
+            isAsc = !isAsc
+            changeColorButtonSort()
+        }
+        binding.btnPriceDESC.setOnClickListener {
+            productAdapter.sortProductsByPriceDescending()
+            isAsc = false
+            isDesc = !isDesc
+            changeColorButtonSort()
+        }
+    }
+
+    private fun changeColorButtonSort() {
+        val selectColor = ContextCompat.getColor(
+            requireContext(),
+            R.color.txt_color2
+        )
+        val unSelectColor = ContextCompat.getColor(
+            requireContext(),
+            R.color.gray
+        )
+        if (isAsc) {
+            binding.btnPriceASC.setColorFilter(selectColor)
+        } else {
+            binding.btnPriceASC.setColorFilter(unSelectColor)
+        }
+        if (isDesc) {
+            binding.btnPriceDESC.setColorFilter(
+                selectColor
+            )
+        } else {
+            binding.btnPriceDESC.setColorFilter(unSelectColor)
+        }
     }
 
     private fun setUpLoadMore() {
@@ -183,35 +288,9 @@ class SearchFragment : Fragment() {
     private fun loadMoreItems() {
         Handler(Looper.getMainLooper()).postDelayed({
             currPage++
-            productsViewModel.searchProducts(binding.txtKey.text.toString(), currPage, LIMIT)
+            fetchProductSearchWithFilter()
             hideLoading()
         }, 1000)
-    }
-
-    private fun initializeSeekbar(startPrice: TextView, endPrice: TextView) {
-
-        seekBar.max = 100
-        currentPrice = 2000000
-
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-
-                currentPrice = calculatePrice(progress)
-
-                startPrice.text = formatPrice(currentPrice)
-                endPrice.text = formatPrice(2000000)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
-            }
-
-        })
     }
 
     private fun calculatePrice(progress: Int): Int {

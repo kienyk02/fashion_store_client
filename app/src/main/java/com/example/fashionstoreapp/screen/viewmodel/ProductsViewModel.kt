@@ -106,4 +106,33 @@ class ProductsViewModel() : ViewModel() {
         }
     }
 
+    fun fetchProductSearchWithFilter(
+        categoryIds: List<Int>,
+        keyword: String,
+        fromPrice: Int,
+        toPrice: Int,
+        sort: String,
+        page: Int,
+        limit: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = productRepository.getProductSearchWithFilter(
+                categoryIds,
+                keyword,
+                fromPrice,
+                toPrice,
+                sort,
+                page,
+                limit
+            )
+            if (response.isSuccessful) {
+                _searchProducts.postValue(response.body())
+            } else {
+                _searchProducts.postValue(emptyList())
+            }
+        } catch (e: Exception) {
+            Log.d("productError", e.toString())
+        }
+    }
+
 }
