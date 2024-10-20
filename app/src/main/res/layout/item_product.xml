@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="190dp"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:background="@drawable/custom_anime_selected">
+    android:background="@drawable/custom_anime_selected"
+    android:padding="10dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/wrapperImage"
@@ -56,21 +56,28 @@
         android:layout_height="40dp"
         android:layout_marginTop="-20dp"
         android:layout_marginEnd="20dp"
-        app:cardBackgroundColor="@color/txt_color2"
-        app:cardCornerRadius="50dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="@id/wrapperImage"
         app:layout_constraintTop_toBottomOf="@id/wrapperImage"
         app:strokeColor="@color/white"
         app:strokeWidth="5dp">
 
-        <ImageView
-            android:id="@+id/btnAddCart"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
-            android:src="@drawable/cart2" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            app:cardBackgroundColor="@color/txt_color2"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp">
+
+            <ImageView
+                android:id="@+id/btnAddCart"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@drawable/cart2" />
+        </com.google.android.material.card.MaterialCardView>
     </com.google.android.material.card.MaterialCardView>
 
 

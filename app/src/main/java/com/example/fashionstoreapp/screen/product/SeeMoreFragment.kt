@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fashionstoreapp.Contants.LIMIT
 import com.example.fashionstoreapp.Contants.PAGE
 import com.example.fashionstoreapp.R
+import com.example.fashionstoreapp.data.model.Cart
 import com.example.fashionstoreapp.data.model.Category
 import com.example.fashionstoreapp.data.model.Product
 import com.example.fashionstoreapp.databinding.FragmentSeeMoreBinding
 import com.example.fashionstoreapp.databinding.HeaderLayoutBinding
 import com.example.fashionstoreapp.screen.adapter.CategoryAdapter
 import com.example.fashionstoreapp.screen.adapter.ProductAdapter
+import com.example.fashionstoreapp.screen.viewmodel.CartViewModel
 import com.example.fashionstoreapp.screen.viewmodel.CategoryViewModel
 import com.example.fashionstoreapp.screen.viewmodel.ProductsViewModel
 
@@ -41,6 +44,13 @@ class SeeMoreFragment : Fragment() {
         ViewModelProvider(
             this,
         )[CategoryViewModel::class.java]
+    }
+
+    private val cartViewModel: CartViewModel by lazy {
+        ViewModelProvider(
+            this,
+            CartViewModel.CartViewModelFactory(requireActivity().application)
+        )[CartViewModel::class.java]
     }
 
     private lateinit var categoryAdapter: CategoryAdapter
@@ -100,7 +110,7 @@ class SeeMoreFragment : Fragment() {
             controller.navigate(R.id.action_seeMoreFragment_to_detailFragment, bundle)
         }
         productAdapter.onAddCartClick = {
-            Toast.makeText(requireContext(), "Clicked Add Cart", Toast.LENGTH_SHORT).show()
+            addCart(it)
         }
         productsViewModel.seeMoreProducts.observe(viewLifecycleOwner) {
             productAdapter.addData(it)
@@ -148,5 +158,31 @@ class SeeMoreFragment : Fragment() {
             }
             hideLoading()
         }, 1000)
+    }
+
+    private fun addCart(product: Product) {
+        val cart: Cart = Cart(
+            product = Product(id = product.id),
+            price = (product.price - product.discount / 100).toInt(),
+            color = product.colors[0],
+            size = product.colors[0].sizes[0],
+            quantity = 1
+        )
+
+        cartViewModel.addCart(cart).observe(viewLifecycleOwner, Observer {
+            if (it is Cart) {
+                Toast.makeText(
+                    requireActivity(),
+                    "Sản phẩm đã được thêm vào giỏ hàng",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    requireActivity(),
+                    it.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 }

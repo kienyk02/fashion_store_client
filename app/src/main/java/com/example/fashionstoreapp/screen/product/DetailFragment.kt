@@ -1,5 +1,6 @@
 package com.example.fashionstoreapp.screen.product
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -8,16 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.fashionstoreapp.R
+import com.example.fashionstoreapp.data.model.Cart
+import com.example.fashionstoreapp.data.model.Color
 import com.example.fashionstoreapp.data.model.Product
 import com.example.fashionstoreapp.databinding.FragmentDetailBinding
 import com.example.fashionstoreapp.databinding.HeaderLayoutBinding
 import com.example.fashionstoreapp.screen.adapter.ColorSelectAdapter
 import com.example.fashionstoreapp.screen.adapter.ImageProductAdapter
 import com.example.fashionstoreapp.screen.adapter.SizeAdapter
+import com.example.fashionstoreapp.screen.viewmodel.CartViewModel
 
 class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
@@ -25,6 +31,13 @@ class DetailFragment : Fragment() {
 
     private val controller by lazy {
         findNavController()
+    }
+
+    private val cartViewModel: CartViewModel by lazy {
+        ViewModelProvider(
+            this,
+            CartViewModel.CartViewModelFactory(requireActivity().application)
+        )[CartViewModel::class.java]
     }
 
     private lateinit var product: Product
@@ -52,6 +65,7 @@ class DetailFragment : Fragment() {
         handleSeeMoreContent()
         setUpColorRecyclerView()
         setUpSizeRecyclerView()
+        handleAddCart()
 
         return binding.root
     }
@@ -59,7 +73,8 @@ class DetailFragment : Fragment() {
     private fun setUpData() {
         product = arguments?.getParcelable("product")!!
         binding.txtTitleProduct.text = product.name
-        binding.txtPriceP.text = formatPrice(product.price)
+        binding.txtPriceP.text =
+            formatPrice((product.price - product.price * product.discount / 100).toInt())
         binding.animeDescriptionTextView.text = product.description
     }
 
@@ -133,9 +148,57 @@ class DetailFragment : Fragment() {
         binding.rvSize.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         sizeAdapter.onItemClick = {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
         }
         sizeAdapter.setData(product.colors[0].sizes)
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    private fun handleAddCart() {
+        binding.btnAddCart.setOnClickListener {
+            val cart: Cart = Cart(
+                product = Product(id = product.id),
+                price = (product.price - product.discount / 100).toInt(),
+                color = product.colors[colorAdapter.selectedPosition],
+                size = product.colors[colorAdapter.selectedPosition].sizes[sizeAdapter.selectedPosition],
+                quantity = binding.tvQuantity.text.toString().toInt()
+            )
+
+            cartViewModel.addCart(cart).observe(viewLifecycleOwner, Observer {
+                if (it is Cart) {
+                    Toast.makeText(
+                        requireActivity(),
+                        "Sản phẩm đã được thêm vào giỏ hàng",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        requireActivity(),
+                        it.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+        }
+
+        binding.btnAdd.setOnClickListener {
+            var value = binding.tvQuantity.text.toString().toInt()
+            if (value < 99) {
+                binding.tvQuantity.setText((value + 1).toString())
+                binding.txtPriceP.text =
+                    formatPrice((product.price - product.price * product.discount / 100).toInt() * (value + 1))
+            }
+        }
+        binding.btnMinus.setOnClickListener {
+            var value = binding.tvQuantity.text.toString().toInt()
+            if (value > 1) {
+                binding.tvQuantity.setText(
+                    (value - 1).toString()
+                )
+                binding.txtPriceP.text =
+                    formatPrice((product.price - product.price * product.discount / 100).toInt() * (value - 1))
+            }
+        }
     }
 
     private fun formatPrice(price: Int): String {

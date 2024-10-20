@@ -12,7 +12,7 @@ import com.example.fashionstoreapp.databinding.ItemProductBinding
 class ProductAdapter(private var listProduct: List<Product>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onItemClick: ((Product) -> Unit)? = null
-    var onAddCartClick: (() -> Unit)? = null
+    var onAddCartClick: ((Product) -> Unit)? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -78,7 +78,7 @@ class ProductAdapter(private var listProduct: List<Product>) :
                     .into(productImage)
 
                 btnAddCart.setOnClickListener {
-                    onAddCartClick?.invoke()
+                    onAddCartClick?.invoke(product)
                 }
             }
         }

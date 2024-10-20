@@ -28,9 +28,9 @@
 
             <ImageView
                 android:id="@+id/imgProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="160dp"
-                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/product" />
         </androidx.cardview.widget.CardView>
 
@@ -45,13 +45,21 @@
                 android:id="@+id/txtNameP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="end"
                 android:lines="2"
                 android:textColor="@color/txt_color2"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 tools:text="Premium \nTagerine Shirt" />
+
+            <TextView
+                android:id="@+id/txtColorP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/gray"
+                android:textSize="18sp"
+                tools:text="Red" />
 
             <TextView
                 android:id="@+id/txtSizeP"
@@ -60,7 +68,7 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/gray"
                 android:textSize="18sp"
-                android:text="Size XL" />
+                tools:text="Size XL" />
 
             <TextView
                 android:id="@+id/txtPriceP"
@@ -68,7 +76,7 @@
                 android:layout_height="match_parent"
                 android:gravity="bottom"
                 android:textColor="@color/txt_color2"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 tools:text="450.000đ" />
 
@@ -96,10 +104,11 @@
                 android:layout_marginBottom="10dp"
                 android:background="@android:color/transparent"
                 android:gravity="center"
+                android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="2"
-                android:textSize="40sp"
-                tools:text="1" />
+                android:text="1"
+                android:textSize="40sp" />
 
             <ImageView
                 android:id="@+id/btnMinusCart"
@@ -127,8 +136,8 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="10dp"
             android:layout_gravity="center"
+            android:layout_marginStart="10dp"
             android:src="@drawable/trash" />
     </LinearLayout>
 
