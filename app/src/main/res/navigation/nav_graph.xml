@@ -187,7 +187,11 @@
         android:id="@+id/addressFragment"
         android:name="com.example.fashionstoreapp.screen.setting.AddressFragment"
         android:label="fragment_address"
-        tools:layout="@layout/fragment_address" />
+        tools:layout="@layout/fragment_address" >
+        <action
+            android:id="@+id/action_addressFragment_to_typingAddressFragment"
+            app:destination="@id/typingAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bankFragment"
         android:name="com.example.fashionstoreapp.screen.setting.BankFragment"
@@ -203,5 +207,10 @@
         android:name="com.example.fashionstoreapp.screen.checkout.ShipmentMethodFragment"
         android:label="fragment_shipment_method"
         tools:layout="@layout/fragment_shipment_method" />
+    <fragment
+        android:id="@+id/typingAddressFragment"
+        android:name="com.example.fashionstoreapp.screen.setting.TypingAddressFragment"
+        android:label="fragment_typing_address"
+        tools:layout="@layout/fragment_typing_address" />
 
 </navigation>

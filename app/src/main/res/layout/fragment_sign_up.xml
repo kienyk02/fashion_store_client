@@ -175,6 +175,7 @@
                 android:layout_marginStart="10dp"
                 android:background="@android:color/transparent"
                 android:hint="@string/password_hint"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:textSize="15sp" />
 

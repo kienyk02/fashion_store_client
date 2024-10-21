@@ -9,9 +9,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
 
     private const val IP = "192.168.2.108"
-//    192.168.165.221
+
+    //    192.168.165.221
     private const val BASE_URL = "http://$IP:8080/"
-//    private const val BASE_URL = "https://fahsionstoreserver-production.up.railway.app/"
+
+    //    private const val BASE_URL = "https://fahsionstoreserver-production.up.railway.app/"
+    private const val BASE_URL_ADDRESS = "https://dev-online-gateway.ghn.vn/shiip/public-api/"
+    private const val TOKEN = "f6a51432-8f83-11ef-8e53-0a00184fe694"
+    private const val SHOP_ID = "195098"
 
     val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -31,6 +36,12 @@ object ApiConfig {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    val retrofitAddress: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL_ADDRESS)
+        .client(createOkHttpClient())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
     private fun createOkHttpClient(): OkHttpClient {
 
         val httpClient = OkHttpClient.Builder()
@@ -46,6 +57,8 @@ object ApiConfig {
                 Log.d("AA", jwtToken)
                 requestBuilder.header("Authorization", "Bearer $jwtToken")
             }
+            requestBuilder.header("Token", TOKEN)
+            requestBuilder.header("ShopId", SHOP_ID)
 
             val request = requestBuilder.build()
             chain.proceed(request)
@@ -55,31 +68,4 @@ object ApiConfig {
         return httpClient.build()
     }
 
-    //    val clientSGAI = OkHttpClient.Builder()
-//        .addInterceptor { chain ->
-//            val request = chain.request()
-//            val response = chain.proceed(request)
-//            // Kiểm tra xem phản hồi có được nén không
-//            if (response.header("Content-Encoding") == "gzip") {
-//                val body = response.body
-//                if (body != null) {
-//                    // Giải nén dữ liệu
-//                    val gzippedInputStream = GZIPInputStream(body.byteStream())
-//                    val decompressedBuffer = ByteArray(8192)
-//                    val decompressedOutputStream = ByteArrayOutputStream()
-//                    var read: Int
-//                    while (gzippedInputStream.read(decompressedBuffer).also { read = it } != -1) {
-//                        decompressedOutputStream.write(decompressedBuffer, 0, read)
-//                    }
-//                    // Tạo một ResponseBody mới từ dữ liệu đã giải nén
-//                    val decompressedResponseBody = ResponseBody.create("application/json".toMediaType(), decompressedOutputStream.toByteArray())
-//                    // Tạo một phản hồi mới với dữ liệu đã giải nén
-//                    val decompressedResponse = response.newBuilder().body(decompressedResponseBody).build()
-//                    return@addInterceptor decompressedResponse
-//                }
-//            }
-//            // Nếu phản hồi không được nén, hoặc không có dữ liệu để giải nén, trả về phản hồi ban đầu
-//            return@addInterceptor response
-//        }
-//        .build()
 }

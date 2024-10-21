@@ -84,5 +84,8 @@
     <string name="setting_app">Cài Đặt Ứng Dụng</string>
     <string name="s_d_ng_v_n_tay_thanh_to_n">Sử Dụng Vân Tay Để Thanh Toán</string>
     <string name="setting">Cài đặt</string>
+    <string name="add_address">+ Thêm địa chỉ mới</string>
+    <string name="nh_p_s_nh">Nhập số nhà,...</string>
+    <string name="delete">Xóa</string>
 
 </resources>
