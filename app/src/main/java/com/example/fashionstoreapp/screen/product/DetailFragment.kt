@@ -158,7 +158,7 @@ class DetailFragment : Fragment() {
         binding.btnAddCart.setOnClickListener {
             val cart: Cart = Cart(
                 product = Product(id = product.id),
-                price = (product.price - product.discount / 100).toInt(),
+                price = (product.price - product.price * product.discount / 100).toInt(),
                 color = product.colors[colorAdapter.selectedPosition],
                 size = product.colors[colorAdapter.selectedPosition].sizes[sizeAdapter.selectedPosition],
                 quantity = binding.tvQuantity.text.toString().toInt()

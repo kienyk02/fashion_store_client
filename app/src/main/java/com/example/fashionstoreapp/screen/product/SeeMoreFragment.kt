@@ -163,7 +163,7 @@ class SeeMoreFragment : Fragment() {
     private fun addCart(product: Product) {
         val cart: Cart = Cart(
             product = Product(id = product.id),
-            price = (product.price - product.discount / 100).toInt(),
+            price = (product.price - product.price * product.discount / 100).toInt(),
             color = product.colors[0],
             size = product.colors[0].sizes[0],
             quantity = 1

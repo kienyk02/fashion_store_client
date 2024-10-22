@@ -70,7 +70,7 @@
     <string name="phone_number">Số điện thoại</string>
     <string name="address">Địa chỉ</string>
     <string name="bank">Ngân hàng</string>
-    <string name="shipment_method">Phương thức vận chuyển</string>
+    <string name="shipment_method">Vận chuyển</string>
     <string name="confirm">Xác nhận</string>
     <string name="confirm_code">Mã Xác Thực</string>
     <string name="new_pw">Mật Khẩu Mới</string>

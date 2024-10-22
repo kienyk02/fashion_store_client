@@ -1,7 +1,8 @@
 package com.example.fashionstoreapp.data.model
 
 data class ShipmentMethod(
-    val id: Int,
-    val name: String,
-    val price: Int
+    var id: Int? = null,
+    var name: String = "",
+    var price: Int = 0,
+    var type: Int = 0
 )
