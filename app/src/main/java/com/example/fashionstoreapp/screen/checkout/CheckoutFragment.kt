@@ -119,7 +119,6 @@ class CheckoutFragment : Fragment() {
         }
 
         handleCart()
-        handleAddress()
         handleNameAndPhone()
         handleShipmentMethod()
 
@@ -130,6 +129,7 @@ class CheckoutFragment : Fragment() {
         shareCheckoutViewModel.shipmentMethods.observe(viewLifecycleOwner, Observer {
             listShipmentMethod.clear()
             listShipmentMethod.addAll(it)
+            handleAddress()
         })
 
         shareCheckoutViewModel.shipmentMethodSelected.observe(viewLifecycleOwner, Observer {
@@ -181,7 +181,6 @@ class CheckoutFragment : Fragment() {
                 height = height,
                 items = listOf(Item())
             )
-
             shareCheckoutViewModel.calculateFeeShip(calculateFeeShip)
                 .observe(viewLifecycleOwner, Observer { value ->
                     shipmentMethod.price = value
