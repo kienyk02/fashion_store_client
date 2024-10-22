@@ -87,5 +87,7 @@
     <string name="add_address">+ Thêm địa chỉ mới</string>
     <string name="nh_p_s_nh">Nhập số nhà,...</string>
     <string name="delete">Xóa</string>
+    <string name="set_defaul_addr">Đặt làm địa chỉ mặc định</string>
+    <string name="defaul">Địa chỉ mặc định</string>
 
 </resources>

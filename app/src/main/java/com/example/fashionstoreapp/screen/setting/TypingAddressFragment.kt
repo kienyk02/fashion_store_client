@@ -68,6 +68,7 @@ class TypingAddressFragment : Fragment() {
         if (address != null) {
             binding.btnDelete.visibility = View.VISIBLE
             binding.edtHouse.setText(address!!.address)
+            if (address!!.active == 1) binding.switchActiveAddress.isChecked = true
         }
     }
 
@@ -95,7 +96,8 @@ class TypingAddressFragment : Fragment() {
             districtName = selectedDistrict!!.districtName,
             wardId = selectedWard!!.wardID,
             wardName = selectedWard!!.wardName,
-            address = binding.edtHouse.text.toString()
+            address = binding.edtHouse.text.toString(),
+            active = if (binding.switchActiveAddress.isChecked) 1 else 0
         )
         if (address != null) addressBody.id = address!!.id
         addressViewModel.saveAddress(addressBody)

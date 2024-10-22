@@ -12,5 +12,6 @@ class Address(
     var districtName: String = "",
     var wardId: String = "",
     var wardName: String = "",
-    var address: String = ""
+    var address: String = "",
+    var active: Int = 0
 ) : Parcelable

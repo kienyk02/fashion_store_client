@@ -2,6 +2,7 @@ package com.example.fashionstoreapp.screen.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -55,6 +56,9 @@ class AddressAdapter(var listAddress: List<Address>) :
                 txtAddress.text = address.address
                 txtWard.text =
                     "${address.wardName}, ${address.districtName}, ${address.provinceName}"
+
+                if (address.active == 1) binding.txtDefaultCheck.visibility = View.VISIBLE
+                else binding.txtDefaultCheck.visibility = View.GONE
             }
         }
     }
