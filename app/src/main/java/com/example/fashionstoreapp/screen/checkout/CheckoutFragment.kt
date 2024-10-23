@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.location.Address
-import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,7 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.fashionstoreapp.R
-import com.example.fashionstoreapp.data.model.Cart
+import com.example.fashionstoreapp.data.model.Address
 import com.example.fashionstoreapp.data.model.ShipmentMethod
 import com.example.fashionstoreapp.data.payload.CalculateFeeShip
 import com.example.fashionstoreapp.data.payload.Item
@@ -28,14 +26,6 @@ import com.example.fashionstoreapp.databinding.HeaderLayoutBinding
 import com.example.fashionstoreapp.screen.viewmodel.AddressViewModel
 import com.example.fashionstoreapp.screen.viewmodel.CartViewModel
 import com.example.fashionstoreapp.screen.viewmodel.ShareCheckoutViewModel
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
-import java.io.IOException
 
 class CheckoutFragment : Fragment() {
     private lateinit var binding: FragmentCheckoutBinding
@@ -145,24 +135,33 @@ class CheckoutFragment : Fragment() {
     private fun handleAddress() {
         addressViewModel.fetchAllAddress()
         addressViewModel.listAddress.observe(viewLifecycleOwner, Observer {
-            var check = false
-            for (address in it) {
-                if (address.active == 1) {
-                    shareCheckoutViewModel.updateAddressSelected(address)
-                    check = true
-                    break
+            if (it.isNotEmpty()) {
+                var check = false
+                for (address in it) {
+                    if (address.active == 1) {
+                        shareCheckoutViewModel.updateAddressSelected(address)
+                        check = true
+                        break
+                    }
                 }
-            }
-            if (!check) {
-                shareCheckoutViewModel.updateAddressSelected(it[0])
+                if (!check) {
+                    shareCheckoutViewModel.updateAddressSelected(it[0])
+                }
+            } else {
+                shareCheckoutViewModel.updateAddressSelected(Address())
             }
         })
 
         shareCheckoutViewModel.address.observe(viewLifecycleOwner, Observer {
-            binding.txtAddress.text = it.address
-            binding.txtWard.text = "${it.wardName}, ${it.districtName}, ${it.provinceName}"
-            districtId = it.districtId
-            wardCode = it.wardId
+            if (it.id == null) {
+                binding.txtAddress.text = "Chưa có địa chỉ"
+                binding.txtWard.text = ""
+            } else {
+                binding.txtAddress.text = it.address
+                binding.txtWard.text = "${it.wardName}, ${it.districtName}, ${it.provinceName}"
+                districtId = it.districtId
+                wardCode = it.wardId
+            }
             getFeeShip()
         })
     }
@@ -195,14 +194,14 @@ class CheckoutFragment : Fragment() {
         cartViewModel.listCart.observe(viewLifecycleOwner, Observer {
             totalPrice = 0
             var quantityProduct = 0
+            weight = 0
+            height = 0
+            width = 0
+            length = 0
             for (cart in it) {
                 totalPrice += (cart.product.price - cart.product.price * cart.product.discount / 100).toInt() * cart.quantity
                 quantityProduct += cart.quantity
 
-                weight = 0
-                height = 0
-                width = 0
-                length = 0
                 weight += cart.product.weight.toInt() * cart.quantity
                 height += cart.product.height.toInt() * cart.quantity
                 width = cart.product.width.toInt()
