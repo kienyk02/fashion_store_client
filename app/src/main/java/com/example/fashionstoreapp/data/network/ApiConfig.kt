@@ -11,9 +11,9 @@ object ApiConfig {
     private const val IP = "192.168.2.108"
 
     //    192.168.165.221
-//    private const val BASE_URL = "http://$IP:8080/"
+    private const val BASE_URL = "http://$IP:8080/"
 
-    private const val BASE_URL = "https://fahsionstoreserver-production.up.railway.app/"
+//    private const val BASE_URL = "https://fahsionstoreserver-production.up.railway.app/"
     private const val BASE_URL_ADDRESS = "https://dev-online-gateway.ghn.vn/shiip/public-api/"
     private const val TOKEN = "f6a51432-8f83-11ef-8e53-0a00184fe694"
     private const val SHOP_ID = "195098"

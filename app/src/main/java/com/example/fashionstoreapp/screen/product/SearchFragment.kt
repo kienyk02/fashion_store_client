@@ -156,6 +156,7 @@ class SearchFragment : Fragment() {
         initializeSeekbar(startPrice, endPrice)
 
         dialog.findViewById<Button>(R.id.btnApply).setOnClickListener {
+            currPage = 1
             fetchProductSearchWithFilter()
             productAdapter.setData(listOf())
             dialog.dismiss()
