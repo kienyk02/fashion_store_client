@@ -159,9 +159,9 @@ class CheckoutFragment : Fragment() {
             } else {
                 binding.txtAddress.text = it.address
                 binding.txtWard.text = "${it.wardName}, ${it.districtName}, ${it.provinceName}"
-                districtId = it.districtId
-                wardCode = it.wardId
             }
+            districtId = it.districtId
+            wardCode = it.wardId
             getFeeShip()
         })
     }
@@ -180,6 +180,7 @@ class CheckoutFragment : Fragment() {
                 height = height,
                 items = listOf(Item())
             )
+
             shareCheckoutViewModel.calculateFeeShip(calculateFeeShip)
                 .observe(viewLifecycleOwner, Observer { value ->
                     shipmentMethod.price = value
