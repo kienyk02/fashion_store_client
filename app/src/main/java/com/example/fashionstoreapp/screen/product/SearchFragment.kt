@@ -75,6 +75,7 @@ class SearchFragment : Fragment() {
     private var currPage = 1
     private var isAsc = false
     private var isDesc = false
+    private var quantity = 0
 
     private lateinit var productAdapter: ProductAdapter
     private lateinit var categoryAdapter: CategoryFilterAdapter
@@ -92,8 +93,16 @@ class SearchFragment : Fragment() {
         setUpProductRecycleView()
         setUpLoadMore()
         handleSortPrice()
+        categoryViewModel.categories.observe(viewLifecycleOwner) {
+            categoryAdapter.setData(it)
+            allCategoryId.clear()
+            for (i in it) {
+                allCategoryId.add(i.id)
+            }
+        }
         searchViewModel.key.observe(viewLifecycleOwner) {
             //reset list product
+            quantity = 0
             productAdapter.setData(listOf())
             //search
             productsViewModel.searchProducts(it, PAGE, LIMIT)
@@ -124,7 +133,8 @@ class SearchFragment : Fragment() {
         }
         productsViewModel.searchProducts.observe(viewLifecycleOwner) {
             productAdapter.addData(it)
-            binding.txtNumResult.text = "${it.size} Sản Phẩm"
+            quantity += it.size
+            binding.txtNumResult.text = "$quantity Sản Phẩm"
         }
     }
 
@@ -138,14 +148,6 @@ class SearchFragment : Fragment() {
         categoryRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         categoryRecyclerView.adapter = categoryAdapter
 
-        categoryViewModel.categories.observe(viewLifecycleOwner) {
-            categoryAdapter.setData(it)
-            allCategoryId.clear()
-            for (i in it) {
-                allCategoryId.add(i.id)
-            }
-        }
-
         rangeSlider = dialog.findViewById(R.id.skPrice)
 
         val startPrice = dialog.findViewById<TextView>(R.id.tvStartPrice)
@@ -157,6 +159,7 @@ class SearchFragment : Fragment() {
 
         dialog.findViewById<Button>(R.id.btnApply).setOnClickListener {
             currPage = 1
+            quantity = 0
             fetchProductSearchWithFilter()
             productAdapter.setData(listOf())
             dialog.dismiss()
@@ -275,7 +278,7 @@ class SearchFragment : Fragment() {
                 val totalItemCount = layoutManager.itemCount
                 val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
 
-                if (!isLoading && lastVisibleItemPosition == totalItemCount - 1 && totalItemCount == LIMIT) {
+                if (!isLoading && lastVisibleItemPosition == totalItemCount - 1 && totalItemCount >= LIMIT) {
                     binding.pbLoading.visibility = View.VISIBLE
                     isLoading = true
                     loadMoreItems()

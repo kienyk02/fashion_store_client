@@ -85,6 +85,8 @@ class SeeMoreFragment : Fragment() {
         binding.rvCategory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         categoryAdapter.onItemClick = {
+            productAdapter.setData(listOf())
+            currPage = 1
             if (it.id == 0) {
                 productsViewModel.fetchAllProducts(PAGE, LIMIT)
             } else {
@@ -126,7 +128,7 @@ class SeeMoreFragment : Fragment() {
                 val totalItemCount = layoutManager.itemCount
                 val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
 
-                if (!isLoading && lastVisibleItemPosition == totalItemCount - 1) {
+                if (!isLoading && lastVisibleItemPosition == totalItemCount - 1 && totalItemCount >= LIMIT) {
                     binding.pbLoading.visibility = View.VISIBLE
                     isLoading = true
                     loadMoreItems()
